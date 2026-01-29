@@ -91,6 +91,10 @@ const LINE_NOISE_PATTERNS: RegExp[] = [
   /^\(\d+\)$/,
   /^\*\*\[\d+\]\*\*$/,
 
+  // Citation back-links (Wikipedia style) - Task 4
+  /^\*\*\^\*\*/,       // Starts with bold caret (**^**)
+  /^\^\s+/,            // Starts with caret and space (^ ...)
+
   // "Jump to" navigation (Wikipedia)
   /^Jump to navigation$/i,
   /^Jump to search$/i,
