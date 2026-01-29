@@ -68,6 +68,7 @@ Provide a simple JSON input:
 | `chunkSize` | integer | 600 | Target chunk size in tokens (100-2000) |
 | `outputFormat` | string | "json" | Output format: "json", "markdown", or "both" |
 | `enableChunking` | boolean | true | Enable RAG chunking. Set to false for full markdown only |
+| `stripReferences` | boolean | true | Remove academic footer sections (References, Bibliography, etc.) |
 
 ### Example: Crawl Documentation Site
 
@@ -202,6 +203,30 @@ The extraction pipeline removes 70+ categories of noise:
 - Related posts sections
 - Comment sections
 - Popups and modals
+- **References/Bibliography sections** (Wikipedia-style, configurable)
+- **Position-aware "Notes" removal** (only in footer region)
+
+### Q&A Page Support
+
+Automatic detection and extraction for Q&A sites:
+
+- **Stack Overflow / Stack Exchange**: Full question + answer extraction
+- **Discourse forums**: Topic extraction with replies
+- **Generic Q&A sites**: CSS pattern and Schema.org microdata detection
+
+When a Q&A page is detected, the extractor:
+1. Preserves both question AND answer content (fixes Readability's longest-section bias)
+2. Removes Q&A-specific noise (votes, comments, user cards)
+3. Outputs semantic markers (`## Question`, `## Answer`) for downstream processing
+
+### Nested List Handling
+
+Improved extraction for complex Table of Contents and nested lists:
+
+- Preserves parent text before nested sublists
+- Maintains proper indentation (2-space nesting)
+- Correctly formats links within list items
+- Handles arbitrary nesting depth
 
 ---
 
@@ -319,6 +344,14 @@ Planned extensions:
 | Deployment | ⏳ Pending |
 
 **Current:** 9/10 phases complete (90%)
+
+### Recent Fixes (v1.1.0)
+
+| Issue | Fix |
+|-------|-----|
+| Nested list data loss (75%) | Custom Turndown rule for recursive list handling |
+| Q&A context loss | Multi-selector strategy with Q&A page detection |
+| Footer noise (References) | Position-aware noise removal patterns |
 
 ---
 

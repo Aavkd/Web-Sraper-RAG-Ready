@@ -23,6 +23,9 @@ export const DEFAULT_VALUES = {
 
   /** Enable content chunking for RAG by default */
   enableChunking: true,
+
+  /** Strip References/Bibliography sections by default */
+  stripReferences: true,
 } as const;
 
 /**

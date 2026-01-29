@@ -79,6 +79,13 @@
       "type": "boolean",
       "default": true,
       "editor": "checkbox"
+    },
+    "stripReferences": {
+      "title": "Strip References",
+      "description": "Remove academic-style footer sections (References, Bibliography, External Links, etc.) from extracted content.",
+      "type": "boolean",
+      "default": true,
+      "editor": "checkbox"
     }
   }
 }

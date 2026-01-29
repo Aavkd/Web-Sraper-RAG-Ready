@@ -50,6 +50,10 @@ export const ActorInputSchema = z.object({
   enableChunking: z
     .boolean()
     .default(DEFAULT_VALUES.enableChunking),
+
+  stripReferences: z
+    .boolean()
+    .default(DEFAULT_VALUES.stripReferences),
 });
 
 /**

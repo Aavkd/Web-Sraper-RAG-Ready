@@ -17,31 +17,47 @@ const NOISE_PATTERNS: RegExp[] = [
   /^#+\s*see\s*also\s*$/im,
   /^#+\s*more\s*(from|like\s*this)\s*$/im,
   /^#+\s*recommended\s*(for\s*you)?\s*$/im,
-  
+
   // Social sharing
   /^#+\s*share\s*(this)?\s*(article|post|page)?\s*$/im,
   /^share\s*(on|via)?\s*(facebook|twitter|linkedin|email)/im,
   /^(follow|connect\s*with)\s*us\s*(on)?\s*$/im,
-  
+
   // Comments section headers
   /^#+\s*comments?\s*(\(\d+\))?\s*$/im,
   /^#+\s*leave\s*a\s*(comment|reply)\s*$/im,
   /^#+\s*join\s*the\s*(discussion|conversation)\s*$/im,
-  
+
   // Newsletter/subscription prompts
   /^#+\s*subscribe\s*(to\s*(our|the))?\s*(newsletter)?\s*$/im,
   /^#+\s*sign\s*up\s*(for)?\s*$/im,
   /^#+\s*get\s*(our)?\s*(latest|updates)\s*$/im,
-  
+
   // Navigation elements that might slip through
   /^#+\s*navigation\s*$/im,
   /^#+\s*(main\s*)?menu\s*$/im,
   /^#+\s*skip\s*to\s*(main\s*)?(content)?\s*$/im,
-  
+
   // Author/about sections (often boilerplate)
   /^#+\s*about\s*the\s*author\s*$/im,
   /^#+\s*author\s*(bio)?\s*$/im,
   /^#+\s*written\s*by\s*$/im,
+
+  // Academic/reference sections (Wikipedia-style) - Task 3.1
+  /^#+\s*references?\s*$/im,
+  /^#+\s*bibliography\s*$/im,
+  /^#+\s*external\s*links?\s*$/im,
+  /^#+\s*further\s*reading\s*$/im,
+  /^#+\s*citations?\s*$/im,
+  /^#+\s*sources?\s*$/im,
+  /^#+\s*footnotes?\s*$/im,
+];
+
+/**
+ * Position-sensitive patterns that only match in footer region - Task 3.4
+ */
+const POSITION_SENSITIVE_PATTERNS: { pattern: RegExp; minPositionPercent: number }[] = [
+  { pattern: /^#+\s*notes?\s*$/im, minPositionPercent: 0.8 },
 ];
 
 /**
@@ -51,23 +67,33 @@ const LINE_NOISE_PATTERNS: RegExp[] = [
   // Social share buttons
   /^(share|tweet|pin|post)\s*$/i,
   /^(facebook|twitter|linkedin|pinterest|whatsapp|email)\s*$/i,
-  
+
   // Empty link placeholders
   /^\[\s*\]\(\s*\)\s*$/,
-  
+
   // Standalone icons/emojis that aren't content
   /^[\u{1F300}-\u{1F9FF}]\s*$/u,
-  
+
   // "Read more" links
   /^read\s*more\s*\.{0,3}\s*$/i,
   /^continue\s*reading\s*\.{0,3}\s*$/i,
   /^see\s*more\s*\.{0,3}\s*$/i,
-  
+
   // Time to read indicators
   /^\d+\s*min(ute)?s?\s*read\s*$/i,
-  
+
   // Cookie consent remnants
   /^(accept|reject)\s*(all\s*)?(cookies?)?\s*$/i,
+
+  // Reference markers and footnote indicators - Task 3.3
+  /^\[\d+\]$/,
+  /^↑$/,
+  /^\(\d+\)$/,
+  /^\*\*\[\d+\]\*\*$/,
+
+  // "Jump to" navigation (Wikipedia)
+  /^Jump to navigation$/i,
+  /^Jump to search$/i,
 ];
 
 /**
@@ -86,6 +112,8 @@ export interface MarkdownOptions {
   normalizeWhitespace?: boolean;
   /** Whether to remove noise sections */
   removeNoise?: boolean;
+  /** Whether to strip References/Bibliography sections */
+  stripReferences?: boolean;
 }
 
 const DEFAULT_OPTIONS: Required<MarkdownOptions> = {
@@ -95,6 +123,7 @@ const DEFAULT_OPTIONS: Required<MarkdownOptions> = {
   normalizeHeadings: true,
   normalizeWhitespace: true,
   removeNoise: true,
+  stripReferences: true,
 };
 
 /**
@@ -122,6 +151,78 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
     replacement: () => '',
   });
 
+  // Task 1.1: Custom rule for nested list items - fixes 75% data loss issue
+  // Handles <li> elements containing nested <ul>/<ol> with proper recursion
+  turndown.addRule('nestedListItems', {
+    filter: (node) => {
+      return node.nodeName === 'LI' &&
+        (node.querySelector('ul') !== null || node.querySelector('ol') !== null);
+    },
+    replacement: (_content, node, options) => {
+      // CRITICAL: Handle mixed content properly (Task 1.1 warning)
+      // 1. Extract direct text/link children BEFORE the nested <ul>/<ol>
+      // 2. Process nested list separately with proper indentation
+      // 3. Combine: "- Parent Label\n  - Child 1\n  - Child 2"
+
+      const element = node as HTMLElement;
+      let parentText = '';
+      let nestedContent = '';
+
+      // Iterate through childNodes to separate text from nested lists
+      for (const child of Array.from(element.childNodes)) {
+        if (child.nodeType === 3) { // Node.TEXT_NODE
+          parentText += child.textContent?.trim() || '';
+        } else if (child.nodeName === 'A') {
+          // Task 1.2: Preserve links in parent context
+          const anchor = child as HTMLAnchorElement;
+          const href = anchor.getAttribute('href') || '';
+          const linkText = anchor.textContent?.trim() || '';
+
+          if (linkText && href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+            // Add space before link if we already have text
+            if (parentText && !parentText.endsWith(' ')) {
+              parentText += ' ';
+            }
+            parentText += `[${linkText}](${href})`;
+          } else if (linkText) {
+            if (parentText && !parentText.endsWith(' ')) {
+              parentText += ' ';
+            }
+            parentText += linkText;
+          }
+        } else if (child.nodeName === 'UL' || child.nodeName === 'OL') {
+          // Recursively convert nested list with indentation
+          const nestedListHtml = (child as Element).outerHTML;
+          const nestedMarkdown = turndown.turndown(nestedListHtml);
+
+          // Indent nested items by 2 spaces
+          nestedContent += nestedMarkdown
+            .split('\n')
+            .filter(line => line.trim() !== '')
+            .map(line => '  ' + line)
+            .join('\n');
+        } else if ((child as Element).tagName) {
+          // Other inline elements (span, strong, em, etc.)
+          const inlineHtml = (child as Element).outerHTML;
+          const inlineMarkdown = turndown.turndown(inlineHtml);
+          if (parentText && !parentText.endsWith(' ') && inlineMarkdown) {
+            parentText += ' ';
+          }
+          parentText += inlineMarkdown;
+        }
+      }
+
+      // Combine parent label with nested content
+      const bullet = options.bulletListMarker || '-';
+      const parentLine = parentText.trim();
+
+      if (nestedContent) {
+        return `${bullet} ${parentLine}\n${nestedContent}`;
+      }
+      return `${bullet} ${parentLine}`;
+    },
+  });
+
   // Handle images - preserve alt text, skip decorative images
   turndown.addRule('images', {
     filter: 'img',
@@ -129,17 +230,17 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
       const element = node as HTMLElement;
       const alt = element.getAttribute('alt')?.trim() || '';
       const src = element.getAttribute('src') || '';
-      
+
       // Skip tracking pixels and decorative images
       if (!alt || alt.length < 3) {
         return '';
       }
-      
+
       // Skip data URLs and tracking pixels
       if (src.startsWith('data:') || src.includes('pixel') || src.includes('tracking')) {
         return '';
       }
-      
+
       return `![${alt}](${src})`;
     },
   });
@@ -151,17 +252,17 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
       const element = node as HTMLElement;
       const href = element.getAttribute('href') || '';
       const text = content.trim();
-      
+
       // Skip empty links, anchor links, and javascript links
       if (!text || !href || href.startsWith('#') || href.startsWith('javascript:')) {
         return text || '';
       }
-      
+
       // If link text matches URL, just show the URL
       if (text === href) {
         return href;
       }
-      
+
       return `[${text}](${href})`;
     },
   });
@@ -181,7 +282,7 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
  */
 export function normalizeHeadingLevels(markdown: string): string {
   const lines = markdown.split('\n');
-  
+
   // Find the minimum heading level used (excluding ###### which is H6)
   let minLevel = 6;
   for (const line of lines) {
@@ -190,21 +291,21 @@ export function normalizeHeadingLevels(markdown: string): string {
       minLevel = Math.min(minLevel, match[1].length);
     }
   }
-  
+
   // If already starting at H2 or higher, or no headings found, return as-is
   if (minLevel >= 2 || minLevel === 6) {
     return markdown;
   }
-  
+
   // Calculate the shift needed to make minimum level H2
   const shift = 2 - minLevel;
-  
+
   return lines.map(line => {
     const match = line.match(/^(#{1,6})(\s+.*)$/);
     if (!match) {
       return line;
     }
-    
+
     const currentLevel = match[1].length;
     const newLevel = Math.min(currentLevel + shift, 6); // Cap at H6
     return '#'.repeat(newLevel) + match[2];
@@ -240,43 +341,86 @@ export function normalizeWhitespace(markdown: string): string {
 
 /**
  * Removes noise sections from markdown (related posts, share buttons, etc.)
+ * Includes position-aware handling for ambiguous sections like "Notes" - Task 3.4
  * 
  * @param markdown - The markdown to clean
+ * @param options - Optional settings for noise removal
  * @returns Markdown with noise sections removed
  */
-export function removeNoiseSections(markdown: string): string {
+export function removeNoiseSections(
+  markdown: string,
+  options: { stripReferences?: boolean } = {},
+): string {
+  const { stripReferences = true } = options;
+
+  // If stripReferences is disabled, only apply basic noise patterns
+  const activeNoisePatterns = stripReferences
+    ? NOISE_PATTERNS
+    : NOISE_PATTERNS.slice(0, -7); // Exclude academic/reference patterns
+
   // Remove lines matching noise patterns
   const lines = markdown.split('\n');
+  const totalLines = lines.length;
   const cleanedLines: string[] = [];
   let skipUntilNextHeading = false;
-  
-  for (const line of lines) {
+  let inFooterZone = false; // Track if we've hit a known footer section
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const positionPercent = totalLines > 0 ? i / totalLines : 0;
+
     // Check if this line is a noise section heading
-    const isNoiseHeading = NOISE_PATTERNS.some(pattern => pattern.test(line));
-    
+    const isNoiseHeading = activeNoisePatterns.some(pattern => pattern.test(line));
+
+    // Check position-sensitive patterns - Task 3.4
+    const isPositionSensitiveNoise = stripReferences && POSITION_SENSITIVE_PATTERNS.some(
+      ({ pattern, minPositionPercent }) => {
+        return pattern.test(line) && (positionPercent >= minPositionPercent || inFooterZone);
+      },
+    );
+
     if (isNoiseHeading) {
+      skipUntilNextHeading = true;
+      inFooterZone = true; // Mark that we've entered footer zone
+      continue;
+    }
+
+    if (isPositionSensitiveNoise) {
       skipUntilNextHeading = true;
       continue;
     }
-    
+
     // If we hit a new heading that's not noise, stop skipping
     if (skipUntilNextHeading && /^#{1,6}\s/.test(line)) {
-      skipUntilNextHeading = false;
+      // Check if the new heading is also noise before stopping skip
+      const newHeadingIsNoise = activeNoisePatterns.some(pattern => pattern.test(line));
+      const newHeadingIsPositionNoise = stripReferences && POSITION_SENSITIVE_PATTERNS.some(
+        ({ pattern, minPositionPercent }) => {
+          return pattern.test(line) && (positionPercent >= minPositionPercent || inFooterZone);
+        },
+      );
+
+      if (!newHeadingIsNoise && !newHeadingIsPositionNoise) {
+        skipUntilNextHeading = false;
+        inFooterZone = false; // Reset footer zone when we hit valid content
+      } else {
+        continue; // Skip this noise heading too
+      }
     }
-    
+
     if (skipUntilNextHeading) {
       continue;
     }
-    
+
     // Check if individual line is noise
     const trimmedLine = line.trim();
     const isNoiseLine = LINE_NOISE_PATTERNS.some(pattern => pattern.test(trimmedLine));
-    
+
     if (!isNoiseLine) {
       cleanedLines.push(line);
     }
   }
-  
+
   return cleanedLines.join('\n');
 }
 
@@ -289,28 +433,28 @@ export function removeNoiseSections(markdown: string): string {
  */
 export function htmlToMarkdown(html: string, options: MarkdownOptions = {}): string {
   const opts = { ...DEFAULT_OPTIONS, ...options };
-  
+
   if (!html || html.trim().length === 0) {
     return '';
   }
-  
+
   // Create turndown service and convert
   const turndown = createTurndownService(opts);
   let markdown = turndown.turndown(html);
-  
+
   // Apply post-processing
   if (opts.removeNoise) {
-    markdown = removeNoiseSections(markdown);
+    markdown = removeNoiseSections(markdown, { stripReferences: opts.stripReferences });
   }
-  
+
   if (opts.normalizeHeadings) {
     markdown = normalizeHeadingLevels(markdown);
   }
-  
+
   if (opts.normalizeWhitespace) {
     markdown = normalizeWhitespace(markdown);
   }
-  
+
   return markdown;
 }
 
@@ -328,7 +472,7 @@ export function htmlToMarkdownWithStats(
   const markdown = htmlToMarkdown(html, options);
   const htmlTokens = estimateTokens(html);
   const markdownTokens = estimateTokens(markdown);
-  
+
   return {
     markdown,
     tokensEstimate: markdownTokens,

@@ -22,6 +22,8 @@ export interface ActorInput {
   outputFormat: 'json' | 'markdown' | 'both';
   /** Enable content chunking for RAG (default: true) */
   enableChunking: boolean;
+  /** Strip References/Bibliography sections (default: true) */
+  stripReferences: boolean;
 }
 
 /**
