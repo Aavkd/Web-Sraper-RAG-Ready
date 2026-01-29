@@ -1,0 +1,84 @@
+{
+  "title": "Web Content Scraper Input",
+  "description": "Configuration for the website to LLM-ready knowledge extractor",
+  "type": "object",
+  "schemaVersion": 1,
+  "required": [
+    "startUrl"
+  ],
+  "properties": {
+    "startUrl": {
+      "title": "Start URL",
+      "description": "The URL of the website to crawl. The crawler will stay within this domain.",
+      "type": "string",
+      "editor": "textfield",
+      "example": "https://docs.example.com"
+    },
+    "maxPages": {
+      "title": "Max Pages",
+      "description": "Maximum number of pages to crawl. Set to a lower number to test or save credits.",
+      "type": "integer",
+      "default": 20,
+      "minimum": 1,
+      "maximum": 500,
+      "editor": "number"
+    },
+    "maxDepth": {
+      "title": "Max Depth",
+      "description": "Maximum link depth to crawl from the start URL.",
+      "type": "integer",
+      "default": 2,
+      "minimum": 1,
+      "maximum": 10,
+      "editor": "number"
+    },
+    "includePaths": {
+      "title": "Include Paths",
+      "description": "Only crawl URLs matching these path patterns (e.g., /docs/*, /blog/*). Leave empty to crawl all paths.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "editor": "stringList"
+    },
+    "excludePaths": {
+      "title": "Exclude Paths",
+      "description": "Skip URLs matching these path patterns (e.g., /api/*, /admin/*).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "editor": "stringList"
+    },
+    "chunkSize": {
+      "title": "Chunk Size (tokens)",
+      "description": "Target size for content chunks in tokens. Useful for RAG pipelines with token limits.",
+      "type": "integer",
+      "default": 600,
+      "minimum": 100,
+      "maximum": 2000,
+      "editor": "number"
+    },
+    "outputFormat": {
+      "title": "Output Format",
+      "description": "Choose the output format(s) for extracted content.",
+      "type": "string",
+      "enum": [
+        "json",
+        "markdown",
+        "both"
+      ],
+      "default": "json",
+      "editor": "select"
+    },
+    "enableChunking": {
+      "title": "Enable Chunking",
+      "description": "When enabled, content is split into RAG-ready chunks. Disable to output only full markdown without chunks.",
+      "type": "boolean",
+      "default": true,
+      "editor": "checkbox"
+    }
+  }
+}

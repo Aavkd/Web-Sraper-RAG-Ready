@@ -1,0 +1,68 @@
+# Node
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build
+dist/
+build/
+out/
+lib/
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Docker
+docker-compose.override.yml
+.env.docker
+
+# Misc
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vercel/
+
+# Optional: local runtime files
+pids/
+*.pid
+*.seed
+
+# Yarn v2
+.yarn/*
+.yarnrc.yml
+
+# Ignore generated npm package files
+coverage/
+
+# Ignore lockfile from package managers only if you intentionally don't commit them
+# (usually you DO commit package-lock.json / yarn.lock). Remove the next line if you track lockfiles.
+# package-lock.json
+
+# Ignore project docs and local plan/agent files
+docs!/
+implementation_plan.md
+AGENTS.md
+storage/
