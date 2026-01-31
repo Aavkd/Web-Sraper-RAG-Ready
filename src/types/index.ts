@@ -24,6 +24,8 @@ export interface ActorInput {
   enableChunking: boolean;
   /** Strip References/Bibliography sections (default: true) */
   stripReferences: boolean;
+  /** Force Playwright browser for JavaScript-heavy sites (default: false, uses auto-detection) */
+  usePlaywright?: boolean;
 }
 
 /**

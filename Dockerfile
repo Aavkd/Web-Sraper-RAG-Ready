@@ -1,5 +1,5 @@
 # ---------- Build stage ----------
-FROM node:20-slim AS builder
+FROM apify/actor-node-playwright-chrome:20 AS builder
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # ---------- Production stage ----------
-FROM node:20-slim
+FROM apify/actor-node-playwright-chrome:20
 
 ENV NODE_ENV=production
 WORKDIR /app
@@ -24,7 +24,7 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only (using --omit=dev instead of deprecated --only=production)
+# Install production dependencies only
 RUN npm ci --omit=dev
 
 # Copy built files from builder stage

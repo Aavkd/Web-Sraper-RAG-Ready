@@ -54,6 +54,12 @@ export const ActorInputSchema = z.object({
   stripReferences: z
     .boolean()
     .default(DEFAULT_VALUES.stripReferences),
+
+  usePlaywright: z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe('Force Playwright browser for JavaScript-heavy sites'),
 });
 
 /**

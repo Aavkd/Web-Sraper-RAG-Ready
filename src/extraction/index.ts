@@ -2,6 +2,7 @@
  * Content extraction orchestrator
  * Combines cleaning and readability extraction into a unified pipeline
  * Now includes Q&A page detection for better forum/Q&A extraction (Task 2.3)
+ * Also includes documentation site detection for better doc extraction (Phase 3)
  */
 
 import { cleanHtml, type CleanerOptions } from './cleaner.js';
@@ -14,6 +15,8 @@ import {
 } from './readability.js';
 import { detectQAPage, type QAPageInfo } from './qa-detector.js';
 import { extractQAContent } from './multi-selector.js';
+import { detectDocsPage, getDocsRemoveSelectors, type DocsPageInfo } from './docs-detector.js';
+import { extractDocsContent } from './docs-extractor.js';
 
 /**
  * Result of the extraction pipeline
@@ -35,6 +38,8 @@ export interface ExtractionResult {
   error?: string;
   /** Q&A page detection info (if detected) */
   qaInfo?: QAPageInfo;
+  /** Documentation site detection info (if detected) */
+  docsInfo?: DocsPageInfo;
 }
 
 /**
@@ -84,6 +89,28 @@ export function extractContent(
   const qaDetectionResult = detectQAPage(html, url);
   const qaInfo = qaDetectionResult ?? undefined;
 
+  // Phase 3: Check if this is a documentation page
+  const docsInfo = detectDocsPage(url, html);
+
+  // Try documentation-specific extraction FIRST for docs sites
+  // This bypasses Readability which doesn't work well for structured documentation
+  if (docsInfo.isDocsPage) {
+    const docsResult = extractDocsContent(html, url, docsInfo);
+    if (docsResult.success && docsResult.contentLength > opts.minContentLength) {
+      return {
+        success: true,
+        title: docsResult.title,
+        contentHtml: docsResult.contentHtml,
+        textContent: docsResult.textContent,
+        contentLength: docsResult.contentLength,
+        excerpt: docsResult.excerpt,
+        qaInfo: undefined,
+        docsInfo: docsResult.docsInfo,
+      };
+    }
+    // If docs extraction didn't yield good results, fall through to Readability
+  }
+
   if (qaInfo && qaInfo.isQAPage) {
     // Use multi-selector extraction for Q&A pages
     const qaContent = extractQAContent(html, url, qaInfo);
@@ -97,6 +124,7 @@ export function extractContent(
         contentLength: qaContent.combinedHtml.length,
         excerpt: qaContent.question.slice(0, 200),
         qaInfo,
+        docsInfo: undefined,
       };
     }
     // If Q&A extraction didn't yield good results, fall through to Readability
@@ -111,16 +139,26 @@ export function extractContent(
     return createSuccessResult(readabilityResult, title, qaInfo);
   }
 
-  // Try again with cleaned HTML (with Q&A mode if detected)
-  const cleanerOptions = {
+  // Try again with cleaned HTML (with Q&A mode or docs mode if detected)
+  const cleanerOptions: CleanerOptions = {
     ...opts.cleanerOptions,
     isQAPage: qaInfo?.isQAPage || false,
   };
+
+  // Phase 3: Add docs-specific removal selectors
+  if (docsInfo.isDocsPage) {
+    const docsRemoveSelectors = getDocsRemoveSelectors(docsInfo);
+    cleanerOptions.additionalSelectors = [
+      ...(cleanerOptions.additionalSelectors || []),
+      ...docsRemoveSelectors,
+    ];
+  }
+
   const cleanedHtml = cleanHtml(html, cleanerOptions);
   readabilityResult = extractWithReadability(cleanedHtml, url, opts.readabilityOptions);
 
   if (isValidReadabilityResult(readabilityResult, opts.minContentLength)) {
-    return createSuccessResult(readabilityResult, title, qaInfo);
+    return createSuccessResultWithDocs(readabilityResult, title, qaInfo, docsInfo);
   }
 
   // Fall back to cleaned body if enabled
@@ -133,6 +171,7 @@ export function extractContent(
       contentLength: cleanedHtml.length,
       excerpt: '',
       qaInfo,
+      docsInfo: docsInfo.isDocsPage ? docsInfo : undefined,
     };
   }
 
@@ -146,6 +185,7 @@ export function extractContent(
     excerpt: '',
     error: 'Failed to extract meaningful content from page',
     qaInfo,
+    docsInfo: docsInfo.isDocsPage ? docsInfo : undefined,
   };
 }
 
@@ -165,6 +205,27 @@ function createSuccessResult(
     contentLength: result.length,
     excerpt: result.excerpt,
     qaInfo,
+  };
+}
+
+/**
+ * Creates a successful extraction result with docs info
+ */
+function createSuccessResultWithDocs(
+  result: ReadabilityResult,
+  fallbackTitle: string,
+  qaInfo?: QAPageInfo,
+  docsInfo?: DocsPageInfo,
+): ExtractionResult {
+  return {
+    success: true,
+    title: result.title || fallbackTitle || 'Untitled',
+    contentHtml: result.content,
+    textContent: result.textContent,
+    contentLength: result.length,
+    excerpt: result.excerpt,
+    qaInfo,
+    docsInfo: docsInfo?.isDocsPage ? docsInfo : undefined,
   };
 }
 
@@ -204,6 +265,7 @@ export { type CleanerOptions } from './cleaner.js';
 export { type ReadabilityOptions, type ReadabilityResult } from './readability.js';
 export { cleanHtml, cleanHtmlToDocument } from './cleaner.js';
 export { extractWithReadability, extractTitle, isValidReadabilityResult } from './readability.js';
-export { ALL_BOILERPLATE_SELECTORS, createSelectorString, QA_PRESERVE_SELECTORS, QA_REMOVE_SELECTORS } from './selectors.js';
+export { ALL_BOILERPLATE_SELECTORS, createSelectorString, QA_PRESERVE_SELECTORS, QA_REMOVE_SELECTORS, DOCS_MAIN_CONTENT_SELECTORS, DOCS_REMOVE_SELECTORS } from './selectors.js';
 export { detectQAPage, isKnownQADomain, type QAPageInfo } from './qa-detector.js';
 export { extractQAContent, extractMultipleSections, type QAContent } from './multi-selector.js';
+export { detectDocsPage, isKnownDocsDomain, getDocsRemoveSelectors, getDocsMainContentSelector, type DocsPageInfo } from './docs-detector.js';

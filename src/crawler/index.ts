@@ -55,10 +55,10 @@ export async function createCrawler(config: CrawlerConfig): Promise<{
 }> {
   const { input, crawlerType = 'cheerio', persistState = true } = config;
   const startUrl = normalizeUrl(input.startUrl);
-  
+
   // Create shared state for tracking progress
   const state = createCrawlState(startUrl, input);
-  
+
   // Create handlers
   const requestHandler = config.requestHandler ?? createDefaultHandler(state);
   const failedRequestHandler = createErrorHandler(state);
@@ -79,14 +79,14 @@ export async function createCrawler(config: CrawlerConfig): Promise<{
     requestHandler,
     failedRequestHandler,
   };
-  
+
   // Configure Crawlee to use local storage with persistence enabled
   const configuration = new Configuration({
     persistStorage: persistState, // Enable persistence for crash recovery
   });
-  
+
   let crawler: PlaywrightCrawler | CheerioCrawler;
-  
+
   if (crawlerType === 'playwright') {
     crawler = new PlaywrightCrawler(
       {
@@ -111,7 +111,7 @@ export async function createCrawler(config: CrawlerConfig): Promise<{
       configuration,
     );
   }
-  
+
   return { crawler, state };
 }
 
@@ -121,13 +121,13 @@ export async function createCrawler(config: CrawlerConfig): Promise<{
 export async function runCrawler(config: CrawlerConfig): Promise<CrawlResult> {
   const { crawler, state } = await createCrawler(config);
   const startUrl = normalizeUrl(config.input.startUrl);
-  
+
   // Run the crawler with the start URL
   await crawler.run([{
     url: startUrl,
     userData: { depth: 0 },
   }]);
-  
+
   // Return the extracted pages from state
   return {
     pages: state.extractedPages,
@@ -138,10 +138,50 @@ export async function runCrawler(config: CrawlerConfig): Promise<CrawlResult> {
 }
 
 /**
- * Detects whether a site likely requires JavaScript rendering
- * This is a simple heuristic that can be expanded
+ * Domain patterns for sites known to use SPAs/React/Next.js
+ * These documentation platforms require JavaScript rendering
  */
-export function shouldUsePlaywright(url: string): boolean {
+export const SPA_DOMAIN_PATTERNS: RegExp[] = [
+  // Documentation platforms known to use React/Next.js
+  /docs\.stripe\.com/i,
+  /docs\.github\.com/i,
+  /docs\.vercel\.com/i,
+  /nextjs\.org\/docs/i,
+  /react\.dev/i,
+  /angular\.dev/i,
+  /vuejs\.org/i,
+  /developer\.mozilla\.org/i,  // MDN has JS components
+];
+
+/**
+ * HTML content indicators that suggest SPA/JS rendering is needed
+ */
+export const SPA_HTML_INDICATORS: string[] = [
+  '__NEXT_DATA__',           // Next.js
+  'gatsby',                   // Gatsby
+  '__NUXT__',                // Nuxt
+  'data-reactroot',          // React
+  'ng-version',              // Angular
+  'data-v-',                 // Vue (scoped styles)
+];
+
+/**
+ * Detects whether a site likely requires JavaScript rendering
+ * Uses domain patterns and optionally HTML content indicators
+ * 
+ * @param url - The URL to check
+ * @param htmlContent - Optional HTML content to check for SPA indicators
+ */
+export function shouldUsePlaywright(url: string, htmlContent?: string): boolean {
+  const urlLower = url.toLowerCase();
+
+  // Check domain patterns first (most reliable)
+  const matchesDomainPattern = SPA_DOMAIN_PATTERNS.some(pattern => pattern.test(url));
+  if (matchesDomainPattern) {
+    return true;
+  }
+
+  // Legacy pattern matching for URL hints
   const dynamicSitePatterns = [
     'react',
     'angular',
@@ -150,12 +190,20 @@ export function shouldUsePlaywright(url: string): boolean {
     'nuxt',
     'gatsby',
   ];
-  
-  // Check if URL contains any dynamic site pattern hints
-  const urlLower = url.toLowerCase();
-  const matchesPattern = dynamicSitePatterns.some(pattern => urlLower.includes(pattern));
-  
-  // For now, default to Cheerio unless we detect framework hints
-  // Future: could do a quick fetch and check for JS framework indicators
-  return matchesPattern;
+  const matchesUrlPattern = dynamicSitePatterns.some(pattern => urlLower.includes(pattern));
+  if (matchesUrlPattern) {
+    return true;
+  }
+
+  // Check HTML content for SPA indicators if provided
+  if (htmlContent) {
+    const hasSpaindicator = SPA_HTML_INDICATORS.some(indicator =>
+      htmlContent.includes(indicator)
+    );
+    if (hasSpaindicator) {
+      return true;
+    }
+  }
+
+  return false;
 }

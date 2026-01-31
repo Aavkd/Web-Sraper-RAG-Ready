@@ -98,6 +98,25 @@ const LINE_NOISE_PATTERNS: RegExp[] = [
   // "Jump to" navigation (Wikipedia)
   /^Jump to navigation$/i,
   /^Jump to search$/i,
+
+  // Skip to content (common header noise)
+  /^Skip to content$/i,
+  /^Skip to main content$/i,
+
+  // Footer noise - newsletter/signup
+  /^Sign up for.*updates?:?$/i,
+  /^Sign up$/i,
+  /^Subscribe$/i,
+  /^You can unsubscribe at any time/i,
+
+  // Footer noise - cookie consent
+  /^We use cookies/i,
+  /^manage cookies$/i,
+  /^cookie settings$/i,
+
+  // Footer noise - search placeholders
+  /^Search$/i,
+  /^\/$/,  // Just a slash (search placeholder)
 ];
 
 /**
@@ -153,6 +172,55 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
       return text === '' && node.childNodes.length === 0;
     },
     replacement: () => '',
+  });
+
+  // Phase 2: Handle interactive code blocks from documentation sites
+  // These often use tokenized spans that break into fragmented inline code
+  turndown.addRule('interactiveCodeBlocks', {
+    filter: (node) => {
+      // Match common code block containers by class patterns
+      const classPatterns = ['CodeBlock', 'code-block', 'highlight', 'prism', 'shiki', 'hljs'];
+      const className = node.getAttribute?.('class') || '';
+      const classNameLower = className.toLowerCase();
+
+      // Check if this is a code block container
+      const isCodeBlockContainer = classPatterns.some(p =>
+        classNameLower.includes(p.toLowerCase())
+      );
+
+      // Also match pre > code structures that might have complex children
+      const isPreWithCode = node.nodeName === 'PRE' &&
+        node.querySelector?.('code') !== null &&
+        (node.querySelectorAll?.('span')?.length ?? 0) > 3;
+
+      // Match divs that contain only code-related elements
+      const isCodeWrapper = node.nodeName === 'DIV' &&
+        classNameLower.includes('code') &&
+        node.querySelector?.('pre, code') !== null;
+
+      return isCodeBlockContainer || isPreWithCode || isCodeWrapper;
+    },
+    replacement: (_content, node) => {
+      const element = node as HTMLElement;
+
+      // Extract raw text, ignoring all child element structure
+      // This prevents the fragmentation issue with tokenized spans
+      const text = element.textContent?.trim() || '';
+
+      if (!text) {
+        return '';
+      }
+
+      // Try to detect language from class
+      const className = element.getAttribute('class') || '';
+      const langMatch = className.match(/language-(\w+)/i) ||
+        className.match(/lang-(\w+)/i) ||
+        className.match(/\b(javascript|typescript|python|java|ruby|go|rust|json|html|css|bash|shell|sql)\b/i);
+      const lang = langMatch?.[1]?.toLowerCase() || 'text';
+
+      // Return as single fenced code block
+      return `\n\`\`\`${lang}\n${text}\n\`\`\`\n`;
+    },
   });
 
   // Task 1.1: Custom rule for nested list items - fixes 75% data loss issue
@@ -327,6 +395,9 @@ export function normalizeWhitespace(markdown: string): string {
     // Normalize line endings
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')
+    // Fix list items that run together without newlines
+    // Pattern: "- [text](link)- [text2](link2)" -> "- [text](link)\n- [text2](link2)"
+    .replace(/(\]\([^)]+\))(-\s*\[)/g, '$1\n$2')
     // Collapse multiple blank lines to maximum of 2
     .replace(/\n{3,}/g, '\n\n')
     // Remove trailing whitespace from lines

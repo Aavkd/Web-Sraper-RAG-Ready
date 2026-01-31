@@ -1,6 +1,6 @@
 import { Actor } from 'apify';
 import { parseAndValidateInput } from './input/schema.js';
-import { runCrawler } from './crawler/index.js';
+import { runCrawler, shouldUsePlaywright, type CrawlerType } from './crawler/index.js';
 import { formatOutput, validateOutputSize } from './output/formatter.js';
 import { generateSummary, formatSummaryForLog, generateDetailedSummary } from './output/summary.js';
 import { logStartupBanner, logSkippedPages, logFinalSummary, createLogger } from './utils/logger.js';
@@ -160,14 +160,63 @@ async function main(): Promise<void> {
     // Log startup banner
     logStartupBanner(input);
 
-    // 2. Run the crawler with integrated extraction pipeline
+    // 2. Determine crawler type - supports explicit user choice or auto-detection
+    let crawlerType: CrawlerType = 'cheerio';
+    let usedFallback = false;
+
+    if (input.usePlaywright) {
+      // User explicitly requested Playwright
+      crawlerType = 'playwright';
+      logger.info('Using Playwright (user-specified)');
+    } else if (shouldUsePlaywright(input.startUrl)) {
+      // Auto-detected SPA/documentation site
+      crawlerType = 'playwright';
+      logger.info('Using Playwright (auto-detected SPA/documentation site)');
+    } else {
+      logger.info('Using Cheerio (default fast mode)');
+    }
+
+    // 3. Run the crawler with integrated extraction pipeline
     logger.section('Starting Crawl');
-    const result = await runCrawler({ input });
+    let result = await runCrawler({ input, crawlerType });
+
+    // 4. Check if Cheerio produced poor results and retry with Playwright
+    // This handles cases where SPA detection failed
+    if (crawlerType === 'cheerio' && result.pages.length > 0) {
+      const firstPage = result.pages[0];
+      const tokensExtracted = firstPage.metadata.tokensEstimate;
+
+      // Check for signs of failed extraction:
+      // - Very few tokens (<200 suggests SPA content not rendered)
+      // - High inline code count (fragmented code blocks)
+      const inlineCodePattern = /`[^`\n]+`/g;
+      const inlineCodeCount = (firstPage.markdown.match(inlineCodePattern) || []).length;
+      const lineCount = firstPage.markdown.split('\n').length;
+      const hasFragmentedCode = inlineCodeCount > lineCount * 0.8;
+
+      if (tokensExtracted < 200 || hasFragmentedCode) {
+        logger.warning(`Cheerio extraction appears incomplete (${tokensExtracted} tokens). Retrying with Playwright...`);
+
+        // Retry with Playwright
+        result = await runCrawler({ input, crawlerType: 'playwright' });
+        usedFallback = true;
+
+        if (result.pages.length > 0) {
+          const newTokens = result.pages[0].metadata.tokensEstimate;
+          logger.info(`Playwright extraction yielded ${newTokens} tokens (improved from ${tokensExtracted})`);
+        }
+      }
+    }
 
     // Store results from crawler
     extractedPages = result.pages;
     skippedPages = result.skippedPages;
     pagesAttempted = result.pagesAttempted;
+
+    // Log which mode was used
+    if (usedFallback) {
+      logger.info('Final crawler mode: Playwright (fallback from Cheerio)');
+    }
 
     // 3. Generate and log summary
     const summary = logCrawlSummary(

@@ -3,7 +3,7 @@
 Turn any website into clean, token-efficient Markdown ready for RAG and LLM pipelines.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
-[![Tests](https://img.shields.io/badge/tests-129%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-173%20passing-brightgreen)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)]()
 [![License](https://img.shields.io/badge/license-ISC-green)]()
 
@@ -69,6 +69,7 @@ Provide a simple JSON input:
 | `outputFormat` | string | "json" | Output format: "json", "markdown", or "both" |
 | `enableChunking` | boolean | true | Enable RAG chunking. Set to false for full markdown only |
 | `stripReferences` | boolean | true | Remove academic footer sections (References, Bibliography, etc.) |
+| `usePlaywright` | boolean | false | Force Playwright browser for JavaScript-heavy sites (auto-detected by default) |
 
 ### Example: Crawl Documentation Site
 
@@ -219,6 +220,48 @@ When a Q&A page is detected, the extractor:
 2. Removes Q&A-specific noise (votes, comments, user cards)
 3. Outputs semantic markers (`## Question`, `## Answer`) for downstream processing
 
+### SPA & JavaScript Site Detection
+
+Automatic detection and handling for JavaScript-heavy documentation sites:
+
+**Auto-detected domains:**
+- Stripe Docs (`docs.stripe.com`)
+- GitHub Docs (`docs.github.com`)
+- Vercel Docs (`docs.vercel.com`)
+- React (`react.dev`), Angular (`angular.dev`), Vue (`vuejs.org`)
+- MDN Web Docs (`developer.mozilla.org`)
+
+**HTML-based detection:**
+- Next.js (`__NEXT_DATA__`)
+- Gatsby, Nuxt, React, Angular, Vue indicators
+
+When detected, the crawler automatically uses Playwright for proper JavaScript rendering. You can also force Playwright with `"usePlaywright": true`.
+
+### Two-Phase Crawling
+
+The crawler implements intelligent fallback:
+1. Start with fast Cheerio extraction
+2. Detect if extraction failed (< 200 tokens or fragmented code)
+3. Automatically retry with Playwright if needed
+
+### Interactive Code Block Handling
+
+Properly extracts tokenized/highlighted code from documentation sites:
+
+- Handles Prism.js, highlight.js, Shiki syntax highlighting
+- Converts tokenized spans back to clean fenced code blocks
+- Preserves language information from class names
+- Prevents fragmentation into inline code
+
+### Content Quality Validation
+
+Every extraction includes quality checks:
+
+- **Token count validation**: Flags pages with too few tokens
+- **Fragmented code detection**: Identifies SPA extraction failures
+- **Navigation detection**: Flags nav-like content
+- **Quality score**: 0-100 rating for extraction quality
+
 ### Nested List Handling
 
 Improved extraction for complex Table of Contents and nested lists:
@@ -237,11 +280,14 @@ Improved extraction for complex Table of Contents and nested lists:
 - Node.js 18+
 - npm or yarn
 
-### Setup
+### Setup (Local Development)
 
 ```bash
 # Install dependencies
 npm install
+
+# Install Playwright browsers (required for SPA sites - local dev only)
+npx playwright install chromium
 
 # Build TypeScript
 npm run build
@@ -252,6 +298,8 @@ npm test
 # Run linting
 npm run lint
 ```
+
+> **Note:** When deployed to Apify, Chromium is included in the Docker image (`apify/actor-node-playwright-chrome:20`) - no manual browser installation needed.
 
 ### Testing
 
@@ -270,9 +318,9 @@ npm run test:watch
 ```
 
 **Test Coverage:**
-- 129 tests across 4 test files
-- Unit tests for extraction, chunking, and tokenization
-- Integration tests for end-to-end crawls
+- 173 tests across 7 test files
+- Unit tests for extraction, chunking, tokenization, and code blocks
+- Integration tests for SPA detection and end-to-end crawls
 
 ### Local Testing
 
@@ -288,7 +336,7 @@ npx apify run --input '{"startUrl": "https://crawlee.dev/docs", "maxPages": 5}'
 - Designed for **content-rich websites** (docs, blogs, marketing sites)
 - Does NOT attempt aggressive Cloudflare bypass
 - Fails fast on blocked or unsuitable pages (to save credits)
-- JavaScript-heavy SPAs may require Playwright mode
+- JavaScript-heavy SPAs are auto-detected and handled with Playwright
 
 These choices keep results **predictable** and costs **under control**.
 
@@ -345,7 +393,18 @@ Planned extensions:
 
 **Current:** 9/10 phases complete (90%)
 
-### Recent Fixes (v1.1.0)
+### Recent Fixes (v1.2.0)
+
+| Feature | Description |
+|---------|-------------|
+| SPA Auto-Detection | Automatic Playwright mode for Stripe, GitHub, Vercel, MDN docs |
+| `usePlaywright` Option | Explicit control over browser mode |
+| Two-Phase Crawling | Cheerio first, Playwright fallback on poor extraction |
+| Code Block Handling | Proper extraction of tokenized/highlighted code |
+| Content Quality Validation | Token count, fragmentation, and navigation detection |
+| Documentation Site Support | Platform-specific selectors for Stripe, GitHub, Vercel, MDN |
+
+### v1.1.0
 
 | Issue | Fix |
 |-------|-----|

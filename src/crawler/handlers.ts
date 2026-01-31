@@ -1,6 +1,7 @@
 /**
  * Page request handlers for the crawler
  * Handles page processing, link extraction, and limit enforcement
+ * Includes content quality validation (Phase 4)
  */
 
 import type { PlaywrightCrawlingContext, CheerioCrawlingContext } from 'crawlee';
@@ -10,6 +11,7 @@ import { extractContent } from '../extraction/index.js';
 import { htmlToMarkdown } from '../processing/markdown.js';
 import { chunkContent, generatePageId } from '../processing/chunker.js';
 import { estimateTokens } from '../processing/tokenizer.js';
+import { validateContent } from '../processing/validator.js';
 
 /**
  * Shared state for tracking crawl progress across requests
@@ -105,7 +107,8 @@ export function createDefaultHandler(state: CrawlState) {
     let html: string;
     if ('page' in context) {
       // Playwright crawler - get content from page
-      html = await context.page.content();
+      const playwrightContext = context as PlaywrightCrawlingContext;
+      html = await playwrightContext.page.content();
     } else {
       // Cheerio crawler - get content from body
       html = context.body as string;
@@ -128,6 +131,13 @@ export function createDefaultHandler(state: CrawlState) {
       const markdown = htmlToMarkdown(extractionResult.contentHtml);
       const tokensEstimate = estimateTokens(markdown);
 
+      // Phase 4: Validate content quality
+      const qualityReport = validateContent(markdown);
+      if (!qualityReport.isValid) {
+        const issueTypes = qualityReport.issues.map(i => i.type).join(', ');
+        log.warning(`Quality issues detected for ${url}: ${issueTypes} (score: ${qualityReport.qualityScore})`);
+      }
+
       // Generate page ID and optionally chunk the content
       const pageId = generatePageId(url);
       const chunks = state.input.enableChunking
@@ -139,7 +149,7 @@ export function createDefaultHandler(state: CrawlState) {
         })
         : [];
 
-      // Create the page result
+      // Create the page result with quality info
       const pageResult: PageResult = {
         url,
         title: extractionResult.title,
@@ -159,7 +169,8 @@ export function createDefaultHandler(state: CrawlState) {
       state.pagesProcessed++;
 
       const chunkInfo = state.input.enableChunking ? `, ${chunks.length} chunks` : '';
-      log.info(`Extracted: ${extractionResult.title} (${tokensEstimate} tokens${chunkInfo})`);
+      const qualityInfo = qualityReport.isValid ? '' : ` [quality: ${qualityReport.qualityScore}]`;
+      log.info(`Extracted: ${extractionResult.title} (${tokensEstimate} tokens${chunkInfo})${qualityInfo}`);
     }
 
     // Don't enqueue more links if we've hit the page limit
@@ -173,7 +184,8 @@ export function createDefaultHandler(state: CrawlState) {
     let hrefs: string[] = [];
     if ('page' in context) {
       // Playwright - use page.evaluate
-      hrefs = await context.page.evaluate(() => {
+      const playwrightContext = context as PlaywrightCrawlingContext;
+      hrefs = await playwrightContext.page.evaluate(() => {
         return Array.from(document.querySelectorAll('a[href]'))
           .map(a => a.getAttribute('href'))
           .filter((href): href is string => href !== null);

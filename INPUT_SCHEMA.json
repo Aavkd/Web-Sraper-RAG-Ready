@@ -86,6 +86,13 @@
       "type": "boolean",
       "default": true,
       "editor": "checkbox"
+    },
+    "usePlaywright": {
+      "title": "Use Playwright",
+      "description": "Force Playwright browser for JavaScript-heavy sites. When disabled, auto-detection is used for known SPA documentation sites.",
+      "type": "boolean",
+      "default": false,
+      "editor": "checkbox"
     }
   }
 }

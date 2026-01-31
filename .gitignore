@@ -64,6 +64,10 @@ coverage/
 # Ignore project docs and local plan/agent files
 docs!/
 implementation_plan.md
+implementation_plan(og).md
 AGENTS.md
 storage/
 TEST_RESULTS
+
+# Test outputs
+test_outputs/

@@ -130,8 +130,10 @@ export const COMMENT_SELECTORS = [
 
 /**
  * Selectors for elements that should always be removed
+ * Phase 5: Enhanced with more aggressive cleanup for robustness
  */
 export const ALWAYS_REMOVE_SELECTORS = [
+  // Standard non-content elements
   'script',
   'style',
   'noscript',
@@ -145,12 +147,58 @@ export const ALWAYS_REMOVE_SELECTORS = [
   'button',
   'select',
   'textarea',
+
+  // Hidden elements
   '[hidden]',
   '[aria-hidden="true"]',
   '.hidden',
   '.sr-only',
   '.visually-hidden',
   '.screen-reader-text',
+
+  // Phase 5: Additional cleanup patterns
+  // Announcement banners
+  '.announcement-bar',
+  '.announcement-banner',
+  '.promo-banner',
+  '.site-banner',
+  '[role="alert"]',
+  '[role="status"]',
+
+  // Inline script/style elements often missed
+  '[style*="display:none"]',
+  '[style*="display: none"]',
+  '[style*="visibility:hidden"]',
+  '[style*="visibility: hidden"]',
+
+  // Progress indicators and loading states
+  '.loading',
+  '.spinner',
+  '.skeleton',
+  '[aria-busy="true"]',
+
+  // Print-only elements
+  '.print-only',
+  '.d-print-block',
+
+  // Mobile app download prompts
+  '.app-download',
+  '.mobile-app-banner',
+  '.smart-banner',
+
+  // Chat widgets
+  '.chat-widget',
+  '.intercom-container',
+  '.drift-widget',
+  '.crisp-client',
+  '#hubspot-messages-iframe-container',
+
+  // Analytics pixels
+  'img[src*="pixel"]',
+  'img[src*="tracking"]',
+  'img[src*="analytics"]',
+  'img[width="1"]',
+  'img[height="1"]',
 ] as const;
 
 /**
@@ -280,3 +328,94 @@ export const QA_PRESERVE_SELECTOR_STRING = createSelectorString(QA_PRESERVE_SELE
  */
 export const QA_REMOVE_SELECTOR_STRING = createSelectorString(QA_REMOVE_SELECTORS);
 
+/**
+ * Selectors for documentation site main content areas - Phase 3
+ * Used to prioritize content extraction from known doc site patterns
+ */
+export const DOCS_MAIN_CONTENT_SELECTORS = [
+  // Common documentation main content areas
+  'main',
+  'article',
+  '.content',
+  '.doc-content',
+  '.markdown-body',
+  '[role="main"]',
+
+  // Platform-specific
+  '#main-content',         // Stripe
+  '.docs-container',       // Various
+  '.documentation',
+  '.api-content',
+  '.prose',                // Tailwind/common prose wrapper
+
+  // MDN specific
+  '.main-page-content',
+
+  // React/Next.js docs
+  '.docs-content',
+  '.mdx-content',
+] as const;
+
+/**
+ * Selectors for documentation-specific elements to remove - Phase 3
+ * These are interactive/UI elements that don't contribute to content
+ */
+export const DOCS_REMOVE_SELECTORS = [
+  // Interactive demo components (not content)
+  '.playground',
+  '.sandbox',
+  '.live-editor',
+  '[data-playground]',
+  '[data-repl]',
+
+  // Code block controls
+  '.CodeTabs__tab-bar',
+  '.CodeTabs__copy-button',
+  '.code-toolbar',
+  '.copy-code-button',
+  '[aria-label="Copy code"]',
+  '[aria-label="Copy"]',
+
+  // Terminal/CLI decorators
+  '.terminal-window-header',
+  '.terminal-controls',
+  '.terminal-title',
+  '.terminal-prompt',
+
+  // Navigation remnants
+  '.breadcrumb',
+  '.breadcrumbs',
+  '.pagination',
+  '.on-this-page',
+  '.toc-sidebar',
+  '.table-of-contents',
+  '.docs-nav',
+  '.docs-sidebar',
+
+  // Language/theme switchers
+  '.language-switcher',
+  '.theme-toggle',
+  '.dark-mode-toggle',
+  '[data-theme]',
+
+  // API reference UI elements
+  '.api-method-badge',
+  '.endpoint-badge',
+  '.response-code-selector',
+
+  // Feedback widgets
+  '.feedback-widget',
+  '.was-this-helpful',
+  '.rate-this-page',
+  '.page-feedback',
+] as const;
+
+/**
+ * Pre-built selector string for docs main content
+ */
+export const DOCS_MAIN_CONTENT_SELECTOR_STRING = createSelectorString(DOCS_MAIN_CONTENT_SELECTORS);
+
+/**
+ * Pre-built selector string for docs elements to remove
+ */
+export const DOCS_REMOVE_SELECTOR_STRING = createSelectorString(DOCS_REMOVE_SELECTORS);
