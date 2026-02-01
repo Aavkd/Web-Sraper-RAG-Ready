@@ -2,6 +2,8 @@
  * Core type definitions for the Web Content Scraper Actor
  */
 
+import type { DocType } from '../extraction/doc-classifier.js';
+
 /**
  * Actor input configuration - validated at runtime by Zod schema
  */
@@ -26,6 +28,8 @@ export interface ActorInput {
   stripReferences: boolean;
   /** Force Playwright browser for JavaScript-heavy sites (default: false, uses auto-detection) */
   usePlaywright?: boolean;
+  /** Skip low-value listing pages like search results and category pages (default: false) */
+  skipListingPages?: boolean;
 }
 
 /**
@@ -74,6 +78,8 @@ export interface PageResult {
   chunks: Chunk[];
   /** Additional page metadata */
   metadata: PageMetadata;
+  /** Document type classification (guide, api-reference, example, etc.) */
+  docType?: DocType;
 }
 
 /**

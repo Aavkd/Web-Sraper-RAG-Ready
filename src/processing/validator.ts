@@ -226,3 +226,98 @@ export function shouldRetryWithPlaywright(report: ContentQualityReport): boolean
 
     return report.issues.some(issue => retryTriggers.includes(issue.type));
 }
+
+/**
+ * Phase 7: Detects if a page is a low-value listing/index page
+ * These are pages like search results, category listings, or archives
+ * that contain mostly links and minimal substantive content.
+ * 
+ * @param markdown - The markdown content to analyze
+ * @param title - The page title
+ * @param url - The page URL
+ * @returns true if the page appears to be a listing page
+ */
+export function isListingPage(markdown: string, title: string, url: string): boolean {
+    let signals = 0;
+
+    // Signal 1: URL patterns indicating listing pages
+    const listingUrlPatterns = [
+        /\/search\b/i,
+        /\/browse\b/i,
+        /\/category\//i,
+        /\/categories\//i,
+        /\/tag\//i,
+        /\/tags\//i,
+        /\/archive\//i,
+        /\/archives\//i,
+        /\/page\/\d+/i,
+        /\?page=/i,
+        /\?q=/i,
+        /\?search=/i,
+        /\/all\/?$/i,
+        /\/index\/?$/i,
+    ];
+
+    if (listingUrlPatterns.some(pattern => pattern.test(url))) {
+        signals += 2; // URL patterns are strong indicators
+    }
+
+    // Signal 2: Title patterns indicating listing pages
+    const listingTitlePatterns = [
+        /^search\s*(results)?/i,
+        /^browse\s*/i,
+        /^all\s+\w+/i,
+        /^archive/i,
+        /^category:\s*/i,
+        /^tag:\s*/i,
+        /^\w+\s+listing/i,
+        /^index\s+of/i,
+    ];
+
+    if (listingTitlePatterns.some(pattern => pattern.test(title))) {
+        signals += 2;
+    }
+
+    // Signal 3: High link-to-text ratio
+    // Count markdown links
+    const linkPattern = /\[.+?\]\(.+?\)/g;
+    const links = markdown.match(linkPattern) || [];
+    const linkCount = links.length;
+
+    // Estimate text content (non-link text)
+    const textWithoutLinks = markdown.replace(linkPattern, '');
+    const words = textWithoutLinks.split(/\s+/).filter(w => w.length > 0);
+    const wordCount = words.length;
+
+    // If there are many links relative to words, likely a listing page
+    // Threshold: more than 1 link per 10 words
+    if (wordCount > 0 && linkCount > 5 && linkCount / wordCount > 0.1) {
+        signals += 1;
+    }
+
+    // Signal 4: Many short list items (typical of listing pages)
+    const listItemPattern = /^[-*+]\s+.{1,80}$/gm;
+    const listItems = markdown.match(listItemPattern) || [];
+    const lines = markdown.split('\n').filter(l => l.trim());
+
+    if (listItems.length > 10 && listItems.length / lines.length > 0.5) {
+        signals += 1;
+    }
+
+    // Signal 5: Lack of substantial paragraphs
+    const paragraphs = markdown.split(/\n{2,}/).filter(p => {
+        const trimmed = p.trim();
+        // A substantial paragraph: > 100 chars, not a list, not a heading
+        return trimmed.length > 100 &&
+            !trimmed.startsWith('-') &&
+            !trimmed.startsWith('*') &&
+            !trimmed.startsWith('#');
+    });
+
+    if (paragraphs.length < 2) {
+        signals += 1;
+    }
+
+    // If 3 or more signals, it's likely a listing page
+    return signals >= 3;
+}

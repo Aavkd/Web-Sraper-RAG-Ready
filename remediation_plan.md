@@ -218,9 +218,14 @@ function detectCodeLanguage(content: string): string {
 
 ---
 
-### 🟡 Phase 5: SPA Content Consolidation (P2)
+### ✅ Phase 5: SPA Content Consolidation (P2) - IMPLEMENTED
 
 **Goal:** Fix heading fragmentation in SPA-extracted content.
+
+**Changes Made:**
+- Added `consolidateHeadings()` function to `markdown.ts`
+- Merges continuation lines that follow headings (short non-markdown lines < 60 chars)
+- Integrated into `htmlToMarkdown()` post-processing pipeline
 
 ---
 
@@ -228,59 +233,71 @@ function detectCodeLanguage(content: string): string {
 
 **Current Issue:** Lines like `## Go full-stack\nwith a framework` appear as broken headings.
 
-**Proposed Fix:**
+**Implemented Fix:**
 ```typescript
-function consolidateHeadings(markdown: string): string {
-  // Regex to find headings followed by non-markdown continuation lines
-  // Join them into single heading
+export function consolidateHeadings(markdown: string): string {
+  // Look ahead for continuation lines after headings
+  // Merge if: not empty, not heading, not list, not code, < 60 chars
 }
 ```
 
 ---
 
-### 🟡 Phase 6: E-commerce & Product Formatting (P2)
+### ✅ Phase 6: E-commerce & Product Formatting (P2) - IMPLEMENTED
 
 **Goal:** Add proper spacing between product names and prices.
+
+**Changes Made:**
+- Added `normalizeProductLinks()` function to `markdown.ts`
+- Regex transforms `[Product$99.99]` → `[Product - $99.99]`
+- Integrated into `htmlToMarkdown()` post-processing pipeline
 
 ---
 
 #### [MODIFY] [markdown.ts](file:///d:/Documents/PROJECTS/MONEY%20MAKER/Web_Scraper_Fix/src/processing/markdown.ts)
 
-**Proposed Fix:**
+**Implemented Fix:**
 ```typescript
-function normalizeProductLinks(markdown: string): string {
-  // Regex: /\[([^\]]+?)(\$\d+(?:\.\d{2})?)\]/g
-  // Replace with: [$1 - $2]
+export function normalizeProductLinks(markdown: string): string {
+  return markdown.replace(
+    /\[([^\]]+?)(\$[\d,]+(?:\.\d{2})?)\]/g,
+    '[$1 - $2]',
+  );
 }
 ```
 
 ---
 
-### 🟡 Phase 7: Listing Page Detection (P2)
+### ✅ Phase 7: Listing Page Detection (P2) - IMPLEMENTED
 
 **Goal:** Skip or flag low-value index/search pages.
+
+**Changes Made:**
+- Added `isListingPage()` function to `validator.ts`
+- Detection uses 5 signal types: URL patterns, title patterns, link-to-text ratio, list item density, paragraph count
+- Added `skipListingPages` option to `INPUT_SCHEMA.json`
+- Added `skipListingPages?: boolean` to `ActorInput` interface
 
 ---
 
 #### [MODIFY] [validator.ts](file:///d:/Documents/PROJECTS/MONEY%20MAKER/Web_Scraper_Fix/src/processing/validator.ts)
 
-**Add:**
+**Implemented:**
 ```typescript
-function isListingPage(markdown: string, title: string, url: string): boolean {
-  // Detection signals:
-  // - Title contains "Search", "Browse", "Archive"
-  // - URL contains /search, /category/
-  // - High link-to-text ratio
+export function isListingPage(markdown: string, title: string, url: string): boolean {
+  // 5 signals: URL patterns, title patterns, link ratio, list density, paragraph count
+  // Returns true if 3+ signals match
 }
 ```
 
 #### [MODIFY] [INPUT_SCHEMA.json](file:///d:/Documents/PROJECTS/MONEY%20MAKER/Web_Scraper_Fix/INPUT_SCHEMA.json)
 
-**Add:**
+**Added:**
 ```json
 {
   "skipListingPages": {
     "title": "Skip Listing Pages",
+    "description": "Skip low-value listing pages (search results, category pages, archives).",
     "type": "boolean",
     "default": false
   }
@@ -289,9 +306,15 @@ function isListingPage(markdown: string, title: string, url: string): boolean {
 
 ---
 
-### 🟡 Phase 8: Doc-Type Classification (P2)
+### ✅ Phase 8: Doc-Type Classification (P2) - IMPLEMENTED
 
 **Goal:** Classify pages as Guide vs API Reference vs Example.
+
+**Changes Made:**
+- Created new file `src/extraction/doc-classifier.ts`
+- Exports `DocType` type and `classifyDocPage()` function
+- Uses 3-tier priority: URL patterns → title patterns → content patterns
+- Added `docType?: DocType` field to `PageResult` interface
 
 ---
 
@@ -301,24 +324,27 @@ function isListingPage(markdown: string, title: string, url: string): boolean {
 
 **Exports:**
 ```typescript
-type DocType = 'guide' | 'api-reference' | 'example' | 'concept' | 'changelog' | 'unknown';
+export type DocType = 'guide' | 'api-reference' | 'example' | 'concept' | 'changelog' | 'unknown';
 
-function classifyDocPage(url: string, title: string, content: string): DocType;
+export function classifyDocPage(url: string, title: string, content: string): DocType;
+export function getDocTypeLabel(type: DocType): string;
 ```
 
 **Detection patterns:**
-- `/api/` → `api-reference`
-- `/guides/`, `/docs/` → `guide`
+- `/api/`, `/reference/` → `api-reference`
+- `/guides/`, `/docs/`, `/getting-started/` → `guide`
 - `/examples/`, `/tutorials/` → `example`
-- `/concepts/` → `concept`
+- `/concepts/`, `/fundamentals/` → `concept`
 - `/changelog`, `/releases` → `changelog`
 
 ---
 
 #### [MODIFY] [types/index.ts](file:///d:/Documents/PROJECTS/MONEY%20MAKER/Web_Scraper_Fix/src/types/index.ts)
 
-**Add docType to PageResult:**
+**Added docType to PageResult:**
 ```typescript
+import type { DocType } from '../extraction/doc-classifier.js';
+
 interface PageResult {
   // ... existing fields
   docType?: DocType;
@@ -449,13 +475,13 @@ graph TD
 
 | Priority | Status | File | Purpose |
 |----------|--------|------|---------|
-| 🔴 P0 | MODIFY | `src/crawler/handlers.ts` | Fix link extraction, add depth handling |
-| 🔴 P0 | MODIFY | `src/crawler/index.ts` | Verify enqueue strategy |
-| 🔴 P0 | MODIFY | `src/extraction/docs-detector.ts` | Add Stripe selectors |
-| 🟠 P1 | MODIFY | `src/extraction/cleaner.ts` | Enhanced nav/footer selectors |
-| 🟠 P1 | MODIFY | `src/processing/markdown.ts` | CTA removal, code splitting, heading consolidation |
-| 🟠 P1 | NEW | `src/processing/language-detector.ts` | Language detection + code block utils |
-| 🟡 P2 | MODIFY | `src/processing/validator.ts` | Listing page detection |
-| 🟡 P2 | NEW | `src/extraction/doc-classifier.ts` | Doc type classification |
-| 🟡 P2 | MODIFY | `src/types/index.ts` | Add docType to PageResult |
-| 🟡 P2 | MODIFY | `INPUT_SCHEMA.json` | skipListingPages option |
+| 🔴 P0 | ✅ DONE | `src/crawler/handlers.ts` | Fix link extraction, add depth handling |
+| 🔴 P0 | ✅ DONE | `src/crawler/index.ts` | Verify enqueue strategy |
+| 🔴 P0 | ✅ DONE | `src/extraction/docs-detector.ts` | Add Stripe selectors |
+| 🟠 P1 | ✅ DONE | `src/extraction/cleaner.ts` | Enhanced nav/footer selectors |
+| 🟠 P1 | ✅ DONE | `src/processing/markdown.ts` | CTA removal, code splitting, heading consolidation, product formatting |
+| 🟠 P1 | ✅ DONE | `src/processing/language-detector.ts` | Language detection + code block utils |
+| 🟡 P2 | ✅ DONE | `src/processing/validator.ts` | Listing page detection |
+| 🟡 P2 | ✅ DONE | `src/extraction/doc-classifier.ts` | Doc type classification |
+| 🟡 P2 | ✅ DONE | `src/types/index.ts` | Add docType to PageResult, skipListingPages to ActorInput |
+| 🟡 P2 | ✅ DONE | `INPUT_SCHEMA.json` | skipListingPages option |

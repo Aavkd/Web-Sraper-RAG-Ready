@@ -508,6 +508,84 @@ export function removeNoiseSections(
 }
 
 /**
+ * Phase 5: Consolidates fragmented headings from SPA-extracted content
+ * Fixes issues like "## Go full-stack\nwith a framework" becoming a single heading
+ * 
+ * @param markdown - The markdown to consolidate
+ * @returns Markdown with consolidated headings
+ */
+export function consolidateHeadings(markdown: string): string {
+  const lines = markdown.split('\n');
+  const result: string[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Check if this is a heading line
+    const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+
+    if (headingMatch) {
+      const hashes = headingMatch[1];
+      let headingText = headingMatch[2];
+
+      // Look ahead for continuation lines
+      // A continuation line is:
+      // - Not empty
+      // - Not another heading
+      // - Not a list item
+      // - Not a code block
+      // - Not a horizontal rule
+      // - Short (< 60 chars) to avoid grabbing paragraphs
+      while (i + 1 < lines.length) {
+        const nextLine = lines[i + 1];
+        const trimmedNext = nextLine.trim();
+
+        // Stop conditions
+        if (
+          trimmedNext === '' ||
+          /^#{1,6}\s/.test(trimmedNext) ||
+          /^[-*+]\s/.test(trimmedNext) ||
+          /^\d+\.\s/.test(trimmedNext) ||
+          /^```/.test(trimmedNext) ||
+          /^---+$/.test(trimmedNext) ||
+          /^\*\*\*+$/.test(trimmedNext) ||
+          /^>/.test(trimmedNext) ||
+          trimmedNext.length > 60
+        ) {
+          break;
+        }
+
+        // This looks like a continuation - merge it
+        headingText += ' ' + trimmedNext;
+        i++; // Skip this line in the main loop
+      }
+
+      result.push(`${hashes} ${headingText}`);
+    } else {
+      result.push(line);
+    }
+  }
+
+  return result.join('\n');
+}
+
+/**
+ * Phase 6: Normalizes product links by adding spacing between names and prices
+ * Fixes "[Product Name$99.99]" → "[Product Name - $99.99]"
+ * 
+ * @param markdown - The markdown to normalize
+ * @returns Markdown with properly spaced product links
+ */
+export function normalizeProductLinks(markdown: string): string {
+  // Pattern: [text immediately followed by price] → [text - price]
+  // Matches: [Product$99.99] or [Item$1,234.56]
+  return markdown.replace(
+    /\[([^\]]+?)(\$[\d,]+(?:\.\d{2})?)\]/g,
+    '[$1 - $2]',
+  );
+}
+
+/**
  * Converts HTML to clean, token-optimized Markdown
  * 
  * @param html - The HTML content to convert
@@ -540,6 +618,12 @@ export function htmlToMarkdown(html: string, options: MarkdownOptions = {}): str
 
   // Phase 4: Improve code block quality (language tags, split merged blocks, format JSON)
   markdown = improveCodeBlocks(markdown);
+
+  // Phase 5: Consolidate fragmented headings from SPA content
+  markdown = consolidateHeadings(markdown);
+
+  // Phase 6: Normalize e-commerce product links
+  markdown = normalizeProductLinks(markdown);
 
   return markdown;
 }

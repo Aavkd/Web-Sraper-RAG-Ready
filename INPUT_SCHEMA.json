@@ -93,6 +93,13 @@
       "type": "boolean",
       "default": false,
       "editor": "checkbox"
+    },
+    "skipListingPages": {
+      "title": "Skip Listing Pages",
+      "description": "Skip low-value listing pages (search results, category pages, archives). These pages typically contain many links but minimal substantive content.",
+      "type": "boolean",
+      "default": false,
+      "editor": "checkbox"
     }
   }
 }
