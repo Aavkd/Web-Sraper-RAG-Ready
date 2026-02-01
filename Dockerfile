@@ -17,8 +17,8 @@ RUN npm ci
 # Copy source code
 COPY --chown=myuser:myuser . .
 
-# Build TypeScript
-RUN npm run build
+# Build TypeScript (use npx to find local tsc)
+RUN npx tsc
 
 # ---------- Production stage ----------
 FROM apify/actor-node-playwright-chrome:20
