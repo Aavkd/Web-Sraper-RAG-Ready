@@ -1,26 +1,23 @@
 # ---------- Build stage ----------
-FROM apify/actor-node-playwright-chrome:20 AS builder
-
-# Create app directory with correct ownership for myuser
-USER root
-RUN mkdir -p /app && chown -R myuser:myuser /app
-USER myuser
+# Use node:20-slim for building (simpler, no permission issues)
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
 # Copy package files first for better layer caching
-COPY --chown=myuser:myuser package*.json ./
+COPY package*.json ./
 
 # Install ALL dependencies (including TypeScript for compilation)
 RUN npm ci
 
 # Copy source code
-COPY --chown=myuser:myuser . .
+COPY . .
 
-# Build TypeScript (use local node_modules bin)
-RUN ./node_modules/.bin/tsc
+# Build TypeScript
+RUN npm run build
 
 # ---------- Production stage ----------
+# Use Playwright image for runtime (has Chromium pre-installed)
 FROM apify/actor-node-playwright-chrome:20
 
 ENV NODE_ENV=production
