@@ -14,6 +14,27 @@ import { estimateTokens } from '../processing/tokenizer.js';
 import { validateContent } from '../processing/validator.js';
 
 /**
+ * Default URL exclusion patterns for documentation crawling - Phase 2
+ * These patterns filter out auth, dashboard, and other non-content pages
+ */
+export const DEFAULT_EXCLUDE_PATTERNS: RegExp[] = [
+  // Auth and login pages
+  /\/(login|signin|signup|register|auth)\//i,
+  // Dashboard and console pages
+  /\/(dashboard|console|settings|admin)\//i,
+  // E-commerce pages
+  /\/(cart|checkout|account|billing)\//i,
+  // Redirect parameters
+  /\?redirect=/i,
+  // Hash-only links (in-page anchors)
+  /#[^/]*$/,
+  // API endpoints (not docs about APIs)
+  /\/api\/v\d+\//i,
+  // Session and OAuth
+  /\/(oauth|session|token)\//i,
+];
+
+/**
  * Shared state for tracking crawl progress across requests
  */
 export interface CrawlState {
@@ -208,25 +229,40 @@ export function createDefaultHandler(state: CrawlState) {
       state.input.excludePaths,
     );
 
+    log.debug(`Found ${hrefs.length} hrefs, ${validLinks.length} valid after extractLinks filter`);
+
+    // Phase 2: Apply default exclusion patterns for non-content pages
+    const filteredLinks = validLinks.filter(link => {
+      return !DEFAULT_EXCLUDE_PATTERNS.some(pattern => pattern.test(link));
+    });
+
+    log.debug(`${filteredLinks.length} links after default exclusion patterns`);
+
     // Filter out already-enqueued URLs and enqueue new ones
-    const newLinks = validLinks.filter(link => !state.enqueuedUrls.has(link));
+    const newLinks = filteredLinks.filter(link => !state.enqueuedUrls.has(link));
+
+    log.debug(`${newLinks.length} new links (not yet enqueued)`);
 
     // Limit how many we enqueue to avoid explosion
     const maxToEnqueue = Math.min(newLinks.length, state.input.maxPages - state.pagesProcessed);
     const linksToEnqueue = newLinks.slice(0, maxToEnqueue);
+
+    log.debug(`Enqueueing ${linksToEnqueue.length} links (maxToEnqueue=${maxToEnqueue}, maxPages=${state.input.maxPages}, processed=${state.pagesProcessed})`);
 
     for (const link of linksToEnqueue) {
       state.enqueuedUrls.add(link);
     }
 
     if (linksToEnqueue.length > 0) {
-      log.info(`Enqueueing ${linksToEnqueue.length} new links from ${url}`);
+      log.info(`Enqueueing ${linksToEnqueue.length} new links from ${url} (depth ${depth + 1})`);
 
       // Use Crawlee's enqueueLinks with our filtered URLs
       await enqueueLinks({
         urls: linksToEnqueue,
         userData: { depth: depth + 1 },
       });
+    } else {
+      log.info(`No new links to enqueue from ${url}`);
     }
   };
 }

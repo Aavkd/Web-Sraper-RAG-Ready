@@ -198,7 +198,7 @@ export function shouldUsePlaywright(url: string, htmlContent?: string): boolean 
   // Check HTML content for SPA indicators if provided
   if (htmlContent) {
     const hasSpaindicator = SPA_HTML_INDICATORS.some(indicator =>
-      htmlContent.includes(indicator)
+      htmlContent.includes(indicator),
     );
     if (hasSpaindicator) {
       return true;

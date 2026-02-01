@@ -24,6 +24,16 @@ export const NAVIGATION_SELECTORS = [
   '#navigation',
   '#nav',
   '#navbar',
+  // Phase 3: Enhanced navigation selectors
+  '[aria-label*="navigation"]',
+  '[aria-label*="Navigation"]',
+  '.auth-buttons',
+  '.login-cta',
+  '[data-testid*="signin"]',
+  '[data-testid*="signup"]',
+  '[data-testid*="login"]',
+  '.header-actions',
+  '.nav-actions',
 ] as const;
 
 /**
@@ -36,6 +46,11 @@ export const FOOTER_SELECTORS = [
   '.site-footer',
   '.page-footer',
   '#footer',
+  // Phase 3: Enhanced footer selectors
+  '.footer-nav',
+  '.footer-links',
+  '.footer-menu',
+  'aside:not([data-content])',
 ] as const;
 
 /**

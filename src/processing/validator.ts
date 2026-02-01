@@ -187,7 +187,7 @@ function calculateNavigationScore(markdown: string): number {
     const paragraphs = markdown.split(/\n{2,}/).filter(p =>
         !p.trim().startsWith('-') &&
         !p.trim().startsWith('*') &&
-        p.trim().length > 100
+        p.trim().length > 100,
     ).length;
     if (paragraphs < 2) {
         navSignals++;

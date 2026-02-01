@@ -155,7 +155,7 @@ export function extractQAContent(
     if (questionTitle || question) {
         combinedHtml += '<section class="qa-question">\n';
         if (questionTitle) {
-            combinedHtml += `<h2>Question</h2>\n`;
+            combinedHtml += '<h2>Question</h2>\n';
             combinedHtml += `<h3>${escapeHtml(questionTitle)}</h3>\n`;
         }
         if (question) {

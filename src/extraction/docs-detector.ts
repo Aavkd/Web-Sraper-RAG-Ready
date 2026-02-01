@@ -34,13 +34,20 @@ const DOCS_DOMAIN_PATTERNS: DocsDomainConfig[] = [
     {
         pattern: /docs\.stripe\.com/i,
         platform: 'stripe',
-        mainSelector: '#main-content, main, article',
+        mainSelector: '#main-content, main, article, [data-docs-content]',
         removeSelectors: [
             '.CodeTabs__tab-bar',
             '.CodeTabs__copy-button',
             '.terminal-prompt',
             '.api-ref-sidebar',
             '.sidebar-nav',
+            // Phase 2: Additional Stripe selectors
+            '[data-sidebar]',
+            '.DocSearch-content',
+            '.DocSearch',
+            '[data-algolia-id]',
+            '.stripe-nav',
+            '.docs-sidebar',
         ],
     },
     {
@@ -126,7 +133,7 @@ export function detectDocsPage(url: string, html?: string): DocsPageInfo {
     // Check HTML content for documentation indicators
     if (html) {
         const hasDocsIndicator = DOCS_HTML_INDICATORS.some(indicator =>
-            html.includes(indicator)
+            html.includes(indicator),
         );
 
         if (hasDocsIndicator) {
@@ -153,7 +160,7 @@ export function detectDocsPage(url: string, html?: string): DocsPageInfo {
  */
 export function isKnownDocsDomain(url: string): boolean {
     return DOCS_DOMAIN_PATTERNS.some(config =>
-        config.pattern.test(url) && config.platform !== 'generic'
+        config.pattern.test(url) && config.platform !== 'generic',
     );
 }
 

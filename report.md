@@ -1,274 +1,186 @@
-# 📊 Evaluation Report
-
-**Actor:** Website → LLM-Ready Knowledge Extractor
-**Version tested:** v1.1.0 (as implied by README)
-**Test date:** 2026-01-29
-**Evaluator:** Independent QA / Product Review
-**Objective:** Validate whether the actor’s real outputs match its advertised positioning, claims, and commercial promise.
+Got it — here’s a **clear, concise, no-BS evaluation report** of the **latest Stripe scraping session**, focused on what’s **fixed**, what’s **still broken**, and what **must be resolved** for this actor to truly match what it advertises.
 
 ---
 
-## 1. Executive Summary
+## Executive Summary
 
-The actor demonstrates **solid crawling and basic content extraction**, but **fails to meet several critical promises** made in its README—particularly around:
+✅ **Major improvement compared to the previous run**
+❌ **Still not production-ready for a “docs ingestion / LLM-ready” promise**
 
-* Token efficiency
-* LLM-ready formatting (especially code blocks)
-* Q&A page handling
-* Fail-fast logic for unsuitable pages
-
-In its current state, the actor is **not production-ready for serious RAG or embedding pipelines**, despite strong architectural foundations.
-
-**Overall Grade:** **C- / D+**
-**Commercial Readiness:** **Low–Medium (with high upside if fixed)**
+You’ve successfully fixed the *critical failure* (empty / near-empty scrape), but the actor is **still behaving like a shallow homepage scraper**, not a **documentation crawler**.
 
 ---
 
-## 2. Test Scope & Methodology
+## What Is Now Working Well ✅
 
-### Tests Executed
+### 1. Content Volume & Coverage (Improved)
 
-| Test   | Target Site                | Purpose                        |
-| ------ | -------------------------- | ------------------------------ |
-| Test 2 | Notion SaaS Marketing Page | Boilerplate & token efficiency |
-| Test 4 | Discourse Q&A Forum        | Claimed Q&A extraction         |
-| Test 5 | Stripe Documentation       | Code + docs formatting         |
+* Tokens increased from **~250 → ~1,032**
+* The actor now captures:
 
-(Test 3 skipped due to invalid URL.)
+  * Navigation
+  * Product categories
+  * Example CLI command
+  * One real API object example
+* Chunking is now **structured and stable** (3 coherent chunks)
 
-### Evaluation Criteria
-
-Each test was judged against five dimensions:
-
-1. Extraction Quality
-2. Token Efficiency
-3. Structural Integrity (Markdown correctness)
-4. README Claim Accuracy
-5. Commercial Usability (would users pay?)
+👉 This confirms the Stripe blocking / rendering issue is **mostly resolved**.
 
 ---
 
-## 3. Detailed Findings by Test
+### 2. Metadata & Structure (Good)
+
+* Clean metadata (`url`, `title`, `depth`, `tokensEstimate`)
+* Deterministic chunk IDs
+* Markdown is readable and consistent
+
+This is **acceptable for indexing**, embedding, or downstream LLM use.
 
 ---
 
-## 🔎 Test 2 — SaaS Marketing Page (Notion)
+## Critical Issues Still Unresolved ❌
 
-### Goal
+### 1. ❗ Not Actually Scraping Documentation Pages
 
-Validate boilerplate removal and usefulness of extracted content for RAG.
+**Biggest problem.**
 
-### Observed Behavior
+* `pagesAttempted: 1`
+* `depth: 0`
+* Only `https://docs.stripe.com/` is crawled
 
-**What Worked**
+👉 This is **not documentation ingestion**, it’s **homepage extraction**.
 
-* Main hero and feature sections extracted
-* Navigation mostly removed
-* Reasonable chunk sizes
-* No cookie banners or legal footers
+**What’s missing:**
 
-**What Failed**
+* `/payments/payment-intents`
+* `/api/payment_intents`
+* `/billing`, `/connect`, `/webhooks`, etc.
+* Zero deep technical content
+* No parameter tables
+* No endpoint explanations
+* No guides
 
-1. **Image-heavy output**
-
-   * Large image markdown blocks preserved
-   * Image alt text adds noise and token waste
-   * Contradicts “token-optimized” claim
-
-2. **Marketing fluff preserved**
-
-   * G2 badges, testimonials, vanity metrics
-   * Not meaningful knowledge for LLMs
-
-3. **404 child page extracted**
-
-   * `/product/ai-meeting-notes` returned a soft 404
-   * Still crawled, chunked, and returned
-   * Contains navigation, CTAs, and error text
-
-### Impact
-
-* Increases embedding cost
-* Pollutes vector databases
-* Breaks trust in “fails fast on unsuitable pages”
-
-### Score
-
-| Dimension            | Score   |
-| -------------------- | ------- |
-| Extraction Quality   | 3 / 5   |
-| Token Efficiency     | 2 / 5   |
-| README Accuracy      | 2 / 5   |
-| Commercial Usability | 2.5 / 5 |
-
-**Verdict:** ⚠️ **Partial Fail**
+**Impact:**
+Any user expecting *“Stripe docs ingestion”* will get **~5% of what they expect**.
 
 ---
 
-## 🔎 Test 4 — Q&A Forum (Discourse)
+### 2. Navigation Noise Dominates the Content
 
-### Goal
+A large portion of tokens are:
 
-Validate explicit README claim:
+* Navbar links
+* Product listings
+* Footer links
+* Auth CTAs (“Sign in”, “Create account”)
 
-> “Automatic detection and extraction for Q&A sites”
+This is **low-value content for LLMs** and **pollutes embeddings**.
 
-### Observed Behavior
+You need:
 
-* Page resolved to a login/redirect/soft-404 variant
-* Actor extracted:
-
-  * “Popular topics”
-  * Zero question content
-  * Zero answers
-* No semantic markers (`## Question`, `## Answer`)
-* Page still counted as successfully extracted
-
-### Critical Issues
-
-1. **No Q&A validation**
-
-   * No detection of missing question/answer containers
-   * No fallback logic
-
-2. **README claim not met**
-
-   * No evidence of Q&A-specific logic functioning in real conditions
-
-### Impact
-
-* Direct contradiction of README
-* High risk of negative reviews if users test forums
-* Damages credibility of “advanced extraction” positioning
-
-### Score
-
-| Dimension        | Score |
-| ---------------- | ----- |
-| Q&A Handling     | 0 / 5 |
-| README Accuracy  | 0 / 5 |
-| Commercial Trust | 1 / 5 |
-
-**Verdict:** ❌ **Fail**
+* Navigation stripping
+* Footer stripping
+* CTA filtering
 
 ---
 
-## 🔎 Test 5 — Documentation Site (Stripe)
+### 3. Code Block Quality Is Still Weak
 
-### Goal
+Issues inside the extracted example:
 
-Validate core use case: documentation → RAG-ready Markdown.
+* CLI command and JSON response are **merged into one block**
+* JSON is **syntactically invalid**
+* Placeholder ellipses (`{… 5 items}`) are useless for LLM reasoning
+* No language tag (`json`, `bash`, etc.)
 
-### Observed Behavior
-
-**Severe formatting corruption**
-
-* JSON response exploded into hundreds of micro code blocks
-* Keys, values, punctuation split into separate fenced blocks
-* Markdown is unreadable and unusable
-
-### Root Cause (Likely)
-
-* Turndown + Readability interaction with:
-
-  * `<pre>`
-  * `<code>`
-  * Inline monospace
-* No post-processing normalization for code blocks
-
-### Impact
-
-* Completely unusable for embeddings
-* Breaks the **primary value proposition**
-* Stripe-like docs are a top ICP use case
-
-### Score
-
-| Dimension            | Score |
-| -------------------- | ----- |
-| Extraction Quality   | 1 / 5 |
-| Structural Integrity | 0 / 5 |
-| Token Efficiency     | 1 / 5 |
-| Commercial Usability | 0 / 5 |
-
-**Verdict:** ❌ **Fail**
+For a “developer docs” actor, this is a **quality red flag**.
 
 ---
 
-## 4. README vs Reality Gap Analysis
+### 4. No Semantic Understanding of Docs Hierarchy
 
-| README Claim                     | Reality                         |
-| -------------------------------- | ------------------------------- |
-| “Token-optimized”                | ❌ Images + fluff inflate tokens |
-| “LLM-ready Markdown”             | ❌ Code blocks broken            |
-| “Fails fast on unsuitable pages” | ❌ 404s extracted                |
-| “Q&A page support”               | ❌ Not demonstrated              |
-| “Ready for RAG pipelines”        | ⚠️ Only partially true          |
+Currently:
 
----
+* No distinction between:
 
-## 5. Commercial Readiness Assessment
+  * Guides
+  * API reference
+  * Examples
+  * Concepts
 
-### Current State
+Everything is treated as flat markdown.
 
-* ❌ Not safe for paid RAG workflows
-* ❌ High churn risk for technical users
-* ⚠️ Acceptable for internal tooling or experiments
+This limits:
 
-### Would users pay today?
-
-* Docs ingestion → **No**
-* SaaS knowledge scraping → **Maybe**
-* Pro developers → **No**
+* Search relevance
+* RAG accuracy
+* “Ask questions about Stripe” use cases
 
 ---
 
-## 6. High-Impact Fixes (Prioritized)
+## What the Actor Currently Advertises vs Reality
 
-### 🔴 Critical (Must Fix)
-
-1. **Code block normalization**
-
-   * Merge fragmented `<code>` and `<pre>` into single fenced blocks
-   * Detect JSON/YAML automatically
-
-2. **Fail-fast logic**
-
-   * Skip pages when:
-
-     * Soft 404 detected
-     * Title contains “Oops”, “Not found”, “Sorry”
-     * Content < minimum token threshold
-
-3. **Strict Q&A validation**
-
-   * Only extract if both question + ≥1 answer detected
-   * Otherwise skip and log
+| Claim (implicit or explicit) | Reality          |
+| ---------------------------- | ---------------- |
+| Scrapes Stripe documentation | ⚠️ Only homepage |
+| LLM-ready docs ingestion     | ❌ No             |
+| Useful for RAG / embeddings  | ⚠️ Marginal      |
+| Developer-grade data         | ❌ Not yet        |
 
 ---
 
-### 🟡 High ROI Improvements
+## Concrete Fixes Required (Priority Order)
 
-4. **Image handling**
+### 🔴 P0 – Must Fix
 
-   * Default: strip images
-   * Optional: replace with short textual summaries
+1. **Enable deep crawling**
 
-5. **Marketing noise filter**
+   * Follow internal `/docs` links
+   * Configurable depth (at least 2–3)
+2. **Limit scope**
 
-   * Remove badges, testimonials, vanity metrics
-   * Improves RAG relevance drastically
+   * Stay inside `docs.stripe.com`
+   * Exclude auth/dashboard links
 
 ---
 
-## 7. Final Verdict
+### 🟠 P1 – Strongly Recommended
 
-This actor has:
+3. **Content filtering**
 
-* ✅ Good architecture
-* ✅ Sensible crawl controls
-* ❌ Overstated marketing
-* ❌ Critical formatting flaws
+   * Remove navbar / footer / CTAs
+4. **Fix code block extraction**
 
-With **2–3 focused iterations**, it could become a **top-tier Apify actor**.
-In its current form, it should **not be sold as “RAG-ready” without caveats**.
+   * Separate CLI vs JSON
+   * Preserve valid JSON where possible
+   * Add language tags
+
+---
+
+### 🟡 P2 – Quality Upgrade
+
+5. **Doc-type classification**
+
+   * Guide vs API vs Example
+6. **Better chunking**
+
+   * Split by headings (`##`, `###`)
+   * Token-aware splitting for RAG
+
+---
+
+## Final Verdict
+
+**Current State:**
+🟡 *“Technically functional, but misleading if sold as a Stripe docs scraper.”*
+
+**After P0 + P1 fixes:**
+🟢 *“Legit LLM ingestion actor for developer documentation.”*
+
+If you want, next we can:
+
+* Compare this output **against your README promises**
+* Design a **gold-standard expected output**
+* Define **automated quality checks** for future runs (doc depth, code ratio, etc.)
+
+You’re clearly moving in the right direction — now it’s about depth and precision, not just access.

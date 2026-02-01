@@ -5,6 +5,7 @@
 
 import TurndownService from 'turndown';
 import { estimateTokens } from './tokenizer.js';
+import { improveCodeBlocks } from './language-detector.js';
 
 /**
  * Noise patterns to remove from markdown output
@@ -117,6 +118,13 @@ const LINE_NOISE_PATTERNS: RegExp[] = [
   // Footer noise - search placeholders
   /^Search$/i,
   /^\/$/,  // Just a slash (search placeholder)
+
+  // Phase 3: CTA noise patterns
+  /^(Sign in|Sign up|Log in|Create account|Get started free)\s*$/im,
+  /^(Start now|Try free|Request demo|Get started)\s*$/im,
+  /^\[(Sign in|Log in|Create account|Sign up)\]\(.*\)$/im,
+  /^(Learn more|Read more|View all|See all)\s*$/im,
+  /^(Contact us|Contact sales|Talk to sales)\s*$/im,
 ];
 
 /**
@@ -185,7 +193,7 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
 
       // Check if this is a code block container
       const isCodeBlockContainer = classPatterns.some(p =>
-        classNameLower.includes(p.toLowerCase())
+        classNameLower.includes(p.toLowerCase()),
       );
 
       // Also match pre > code structures that might have complex children
@@ -529,6 +537,9 @@ export function htmlToMarkdown(html: string, options: MarkdownOptions = {}): str
   if (opts.normalizeWhitespace) {
     markdown = normalizeWhitespace(markdown);
   }
+
+  // Phase 4: Improve code block quality (language tags, split merged blocks, format JSON)
+  markdown = improveCodeBlocks(markdown);
 
   return markdown;
 }
