@@ -224,4 +224,41 @@ describe('Code Block Handling', () => {
       expect(result).toContain('simple code here');
     });
   });
+  describe('Language Detection from Classes', () => {
+    it('should detect language from brush: syntax', () => {
+      const html = '<pre class="brush: python"><code>print("hello")</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```python');
+    });
+
+    it('should detect language from nested code element', () => {
+      const html = '<pre><code class="language-ruby">puts "hello"</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```ruby');
+    });
+
+    it('should detect language from parent pre element', () => {
+      const html = '<pre class="language-go"><code>fmt.Println("hello")</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```go');
+    });
+
+    it('should fallback to content detection when no class', () => {
+      const html = '<pre><code>SELECT * FROM users;</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```sql');
+    });
+
+    it('should handle DevOps/config languages', () => {
+      const html = '<pre class="language-dockerfile"><code>FROM node:18</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```dockerfile');
+    });
+
+    it('should handle GraphQL', () => {
+      const html = '<pre class="lang-graphql"><code>query { user { name } }</code></pre>';
+      const result = htmlToMarkdown(html);
+      expect(result).toContain('```graphql');
+    });
+  });
 });

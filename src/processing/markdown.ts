@@ -5,7 +5,7 @@
 
 import TurndownService from 'turndown';
 import { estimateTokens } from './tokenizer.js';
-import { improveCodeBlocks } from './language-detector.js';
+import { improveCodeBlocks, detectLanguageFromClasses, detectLanguageFromContent } from './language-detector.js';
 
 /**
  * Noise patterns to remove from markdown output
@@ -158,6 +158,15 @@ const DEFAULT_OPTIONS: Required<MarkdownOptions> = {
 };
 
 /**
+ * Checks if a node appears to be a tokenized code block (many spans)
+ */
+function hasTokenizedSpans(node: Node): boolean {
+  const element = node as HTMLElement;
+  const spans = element.querySelectorAll('span');
+  return spans.length > 3; // Threshold for "tokenized"
+}
+
+/**
  * Creates a configured Turndown service with custom rules
  */
 function createTurndownService(options: Required<MarkdownOptions>): TurndownService {
@@ -212,23 +221,58 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
       const element = node as HTMLElement;
 
       // Extract raw text, ignoring all child element structure
-      // This prevents the fragmentation issue with tokenized spans
       const text = element.textContent?.trim() || '';
 
       if (!text) {
         return '';
       }
 
-      // Try to detect language from class
-      const className = element.getAttribute('class') || '';
-      const langMatch = className.match(/language-(\w+)/i) ||
-        className.match(/lang-(\w+)/i) ||
-        className.match(/\b(javascript|typescript|python|java|ruby|go|rust|json|html|css|bash|shell|sql)\b/i);
-      const lang = langMatch?.[1]?.toLowerCase() || 'text';
+      // 1. Try element's own class
+      let lang = detectLanguageFromClasses(element.getAttribute('class') || '');
+
+      // 2. Try child <code> element class
+      if (!lang) {
+        const codeEl = element.querySelector('code');
+        if (codeEl) {
+          lang = detectLanguageFromClasses(codeEl.getAttribute('class') || '');
+        }
+      }
+
+      // 3. Try parent element class (for nested structures)
+      if (!lang && element.parentElement) {
+        lang = detectLanguageFromClasses(element.parentElement.getAttribute('class') || '');
+      }
+
+      // 4. Fallback to content detection
+      if (!lang || lang === 'text') {
+        lang = detectLanguageFromContent(text);
+      }
 
       // Return as single fenced code block
       return `\n\`\`\`${lang}\n${text}\n\`\`\`\n`;
     },
+  });
+
+  // Task 1.3: Handle standard <pre><code> blocks that don't match interactive pattern
+  turndown.addRule('fencedCodeBlockWithLanguage', {
+    filter: (node) => {
+      return node.nodeName === 'PRE' &&
+        node.firstChild?.nodeName === 'CODE' &&
+        !hasTokenizedSpans(node); // Skip if already handled by interactiveCodeBlocks (roughly)
+    },
+    replacement: (_content, node) => {
+      const pre = node as HTMLElement;
+      const code = pre.querySelector('code');
+      const text = code?.textContent?.trim() || pre.textContent?.trim() || '';
+      if (!text) return '';
+
+      // Try to get language from either element
+      let lang = detectLanguageFromClasses(code?.getAttribute('class') || '') ||
+        detectLanguageFromClasses(pre.getAttribute('class') || '') ||
+        detectLanguageFromContent(text);
+
+      return `\n\`\`\`${lang}\n${text}\n\`\`\`\n`;
+    }
   });
 
   // Task 1.1: Custom rule for nested list items - fixes 75% data loss issue
@@ -310,15 +354,28 @@ function createTurndownService(options: Required<MarkdownOptions>): TurndownServ
       const element = node as HTMLElement;
       const alt = element.getAttribute('alt')?.trim() || '';
       const src = element.getAttribute('src') || '';
+      const MAX_DATA_URI_LENGTH = 100;    // ~100 chars for small inline SVG icons
+      const MAX_IMAGE_URL_LENGTH = 500;   // Reasonable max for CDN URLs
 
-      // Skip tracking pixels and decorative images
+      // Skip tracking pixels and decorative images (no alt text)
       if (!alt || alt.length < 3) {
         return '';
       }
 
-      // Skip data URLs and tracking pixels
-      if (src.startsWith('data:') || src.includes('pixel') || src.includes('tracking')) {
+      // Skip tracking pixels by URL pattern
+      if (src.includes('pixel') || src.includes('tracking') || src.includes('beacon')) {
         return '';
+      }
+
+      // Skip long data URIs (base64 encoded images waste tokens)
+      if (src.startsWith('data:') && src.length > MAX_DATA_URI_LENGTH) {
+        return ''; // Remove entirely - alt text alone isn't useful for data URIs
+      }
+
+      // Skip excessively long URLs (CDN URLs with many params)
+      if (src.length > MAX_IMAGE_URL_LENGTH) {
+        // For long URLs, keep just the alt text as a reference
+        return `[Image: ${alt}]`;
       }
 
       return `![${alt}](${src})`;

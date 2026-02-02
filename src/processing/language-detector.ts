@@ -16,7 +16,7 @@ const LANGUAGE_CLASS_PATTERNS: [RegExp, string][] = [
     [/\b(ruby|rb)\b/i, 'ruby'],
     [/\b(java)\b/i, 'java'],
     [/\b(go|golang)\b/i, 'go'],
-    [/\b(rust|rs)\b/i, 'rust'],
+    [/\b(rust)\b/i, 'rust'],
     [/\b(json)\b/i, 'json'],
     [/\b(yaml|yml)\b/i, 'yaml'],
     [/\b(xml)\b/i, 'xml'],
@@ -29,6 +29,16 @@ const LANGUAGE_CLASS_PATTERNS: [RegExp, string][] = [
     [/\b(cpp|c\+\+)\b/i, 'cpp'],
     [/\b(swift)\b/i, 'swift'],
     [/\b(kotlin)\b/i, 'kotlin'],
+    [/brush:\s*(\w+)/i, '$1'],           // SyntaxHighlighter: brush: python
+    [/crayon-(\w+)/i, '$1'],              // Crayon syntax highlighter
+    [/code-(\w+)/i, '$1'],                // Generic code-{lang}
+    [/language_(\w+)/i, '$1'],            // Underscore variant: language_python
+    [/^(\w+)$/i, '$1'],                   // Standalone language name as class
+    [/\b(dockerfile|makefile|nginx|apache|vim|markdown|md)\b/i, '$1'], // Config languages
+    [/\b(terraform|hcl|toml)\b/i, '$1'],  // DevOps languages
+    [/\b(graphql|gql)\b/i, 'graphql'],    // GraphQL
+    [/\b(powershell|pwsh|ps1)\b/i, 'powershell'], // PowerShell variants
+    [/\b(plaintext|plain|text)\b/i, 'text'], // Explicit text markers
 ];
 
 /**

@@ -184,3 +184,33 @@ If you want, next we can:
 * Define **automated quality checks** for future runs (doc depth, code ratio, etc.)
 
 You’re clearly moving in the right direction — now it’s about depth and precision, not just access.
+
+---
+
+## Remediation Progress Update (v1.3 Execution)
+
+### 1. Code Block Language Detection (Issue #1) - ✅ FIXED
+**Action Taken:**
+- Extended `language-detector.ts` with comprehensive regex patterns (DevOps, config files, syntax highlighters).
+- Improved `markdown.ts` Turndown rules to check `class` attributes on parents, children, and `<code>` elements.
+- Implemented `splitMergedCodeBlocks` to separate CLI commands from JSON outputs.
+
+**Verification Results:**
+- **Unit Tests:** Passed (covered Edge cases, Stripe-style tokens, standard blocks).
+- **Manual Verification (Stripe Docs):**
+  - Confirmed `curl` snippets are tagged as `bash`.
+  - Confirmed JSON responses are tagged as `json`.
+  - Fixed false-positive `rust` detection (removed `rs` alias).
+
+### 2. Image Noise Filtering (Issue #2) - ✅ FIXED
+**Action Taken:**
+- Updated `markdown.ts` image rule.
+- **Data URIs:** Stripped if length > 100 chars (removes base64 bloat). Kept small icons.
+- **Long URLs:** Converted to `[Image: Alt Text]` if > 500 chars (prevents context window pollution).
+
+**Verification Results:**
+- **Unit Tests:** Passed.
+- **Manual Verification (GitHub):**
+  - Repository badges preserved.
+  - No massive base64 strings in output `content.md`.
+  - Token count reduced (~1,700 tokens for clean extraction).
