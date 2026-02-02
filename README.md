@@ -16,7 +16,7 @@ Most web scrapers return raw HTML soup or noisy text — LLMs don't need that. T
 | **🧠 RAG Chunking** | Splits content into token-sized chunks (default: 600) for Vector DBs. |
 | **🐢/⚡ Hybrid Mode** | Starts fast (Cheerio). Auto-switches to Playwright if it detects a React/Next.js SPA. |
 | **💡 Q&A Optimized** | Preserves context on StackOverflow/Discourse style pages (Question + Answer). |
-| **💰 Predictable Cost** | Fixed price per page ($2.00/1k). No complex Compute Unit math. |
+| **💰 Efficient Cost** | Hybrid engine keeps compute units low. Pay usage fee only for results. |
 
 ---
 
@@ -60,13 +60,15 @@ Create a simple crawler in just a few lines of code...
 
 ---
 
-## 💰 Pricing: Pay for Value, Not Time
-**$2.00 per 1,000 pages** (Pay per usage)
+## 💰 Pricing
+**$2.00 usage fee per 1,000 pages**
 
-Unlike other scrapers that charge by "Compute Units" (RAM x Time), we charge a fixed rate per page.
-*   **Slow website?** You pay the same.
-*   **Heavy JavaScript?** You pay the same.
-*   **No monthly commitment.**
+We use a smart hybrid engine (Cheerio first) to keep compute costs aggressively low.
+*   **Efficiency First:** We attempt fast static extraction first.
+*   **Power When Needed:** We only launch a full browser (Playwright) if absolutely necessary.
+*   **Fair Usage:** You pay a small usage fee + standard compute units.
+
+> **Why this model?** It ensures you get the lowest possible price for simple sites, while guaranteeing capability for complex SPAs.
 
 ---
 
