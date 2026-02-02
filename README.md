@@ -97,6 +97,21 @@ Optimized for Vector Databases.
 }
 ```
 
+## ⚙️ Configuration
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `startUrl` | String | (Required) | The URL to start crawling from. |
+| `maxPages` | Integer | 20 | Maximum number of pages to crawl. |
+| `maxDepth` | Integer | 2 | How deep to follow links (0 = start page only). |
+| `outputFormat` | String | `json` | **`json`**: Structured RAG chunks + metadata.<br>**`markdown`**: Plain .md files.<br>**`both`**: Returns both formats. |
+| `chunkSize` | Integer | 600 | Target size for chunks in tokens. Ideal for embeddings. |
+| `includePaths` | Array | `[]` | Only crawl URLs matching these patterns (e.g. `/docs/*`). |
+| `excludePaths` | Array | `[]` | Skip URLs matching these patterns. |
+| `enableChunking`| Boolean | `true` | Enable smart chunking. Disable for full-page markdown only. |
+| `stripReferences`| Boolean | `true` | Removes academic references/bibliography sections. |
+| `usePlaywright` | Boolean | `false` | Force browser rendering (auto-detected by default). |
+
 ---
 
 ## 🛠️ Technical Details
