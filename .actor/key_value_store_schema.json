@@ -1,5 +1,5 @@
 {
-  "actorSpecification": 1,
+  "actorKeyValueStoreSchemaVersion": 1,
   "title": "Markdown Files",
   "description": "Extracted content stored as individual Markdown files.",
   "type": "object",

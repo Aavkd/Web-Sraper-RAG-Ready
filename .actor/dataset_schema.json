@@ -1,5 +1,5 @@
 {
-  "actorSpecification": 1,
+  "actorDatasetSchemaVersion": 1,
   "title": "RAG Web Scraper Dataset",
   "description": "Schema for the scraped content dataset.",
   "fields": {
