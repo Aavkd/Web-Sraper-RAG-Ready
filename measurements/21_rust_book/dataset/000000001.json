@@ -1,0 +1,133 @@
+{
+	"source": "https://doc.rust-lang.org/book/",
+	"crawledAt": "2026-02-02T06:10:44.189Z",
+	"summary": {
+		"pagesAttempted": 7,
+		"pagesExtracted": 5,
+		"pagesSkipped": 2,
+		"totalTokensEstimate": 967,
+		"startTime": "2026-02-02T06:10:40.614Z",
+		"endTime": "2026-02-02T06:10:44.179Z"
+	},
+	"pages": [
+		{
+			"url": "https://doc.rust-lang.org/book",
+			"title": "The Rust Programming Language - The Rust Programming Language",
+			"markdown": "## Keyboard shortcuts\n\nPress ← or → to navigate between chapters\n\nPress S or / to search in the book\n\nPress ? to show this help\n\nPress Esc to hide this help\n\n## The Rust Programming Language\n\n## The Rust Programming Language\n\n*by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community*\n\nThis version of the text assumes you’re using Rust 1.90.0 (released 2025-09-18) or later with `edition = \"2024\"` in the *Cargo.toml* file of all projects to configure them to use Rust 2024 Edition idioms. See the [“Installation” section of Chapter 1](https://doc.rust-lang.org/ch01-01-installation.html) for instructions on installing or updating Rust, and see [Appendix E](https://doc.rust-lang.org/appendix-05-editions.html) for information on editions.\n\nThe HTML format is available online at https://doc.rust-lang.org/stable/book/ and offline with installations of Rust made with `rustup`; run `rustup doc --book` to open.\n\nSeveral community [translations](https://doc.rust-lang.org/appendix-06-translation.html) are also available.\n\nThis text is available in [paperback and ebook format from No Starch Press](https://nostarch.com/rust-programming-language-3rd-edition).\n\n> **🚨 Want a more interactive learning experience? Try out a different version of the Rust Book, featuring: quizzes, highlighting, visualizations, and more**: [https://rust-book.cs.brown.edu](https://rust-book.cs.brown.edu/)",
+			"chunks": [
+				{
+					"id": "book_chunk_1",
+					"content": "## Keyboard shortcuts\n\nPress ← or → to navigate between chapters\n\nPress S or / to search in the book\n\nPress ? to show this help\n\nPress Esc to hide this help\n\n## The Rust Programming Language",
+					"tokensEstimate": 47,
+					"sourceUrl": "https://doc.rust-lang.org/book",
+					"pageTitle": "The Rust Programming Language - The Rust Programming Language"
+				},
+				{
+					"id": "book_chunk_2",
+					"content": "## The Rust Programming Language\n\n*by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community*\n\nThis version of the text assumes you’re using Rust 1.90.0 (released 2025-09-18) or later with `edition = \"2024\"` in the *Cargo.toml* file of all projects to configure them to use Rust 2024 Edition idioms. See the [“Installation” section of Chapter 1](https://doc.rust-lang.org/ch01-01-installation.html) for instructions on installing or updating Rust, and see [Appendix E](https://doc.rust-lang.org/appendix-05-editions.html) for information on editions.\n\nThe HTML format is available online at https://doc.rust-lang.org/stable/book/ and offline with installations of Rust made with `rustup`; run `rustup doc --book` to open.\n\nSeveral community [translations](https://doc.rust-lang.org/appendix-06-translation.html) are also available.\n\nThis text is available in [paperback and ebook format from No Starch Press](https://nostarch.com/rust-programming-language-3rd-edition).\n\n> **🚨 Want a more interactive learning experience? Try out a different version of the Rust Book, featuring: quizzes, highlighting, visualizations, and more**: [https://rust-book.cs.brown.edu](https://rust-book.cs.brown.edu/)",
+					"tokensEstimate": 307,
+					"sourceUrl": "https://doc.rust-lang.org/book",
+					"pageTitle": "The Rust Programming Language - The Rust Programming Language"
+				}
+			],
+			"metadata": {
+				"url": "https://doc.rust-lang.org/book",
+				"title": "The Rust Programming Language - The Rust Programming Language",
+				"depth": 0,
+				"crawledAt": "2026-02-02T06:10:42.907Z",
+				"tokensEstimate": 353
+			}
+		},
+		{
+			"url": "https://doc.rust-lang.org/ch01-01-installation.html",
+			"title": "Not Found",
+			"markdown": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+			"chunks": [
+				{
+					"id": "ch01_01_installation_chunk_1",
+					"content": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+					"tokensEstimate": 85,
+					"sourceUrl": "https://doc.rust-lang.org/ch01-01-installation.html",
+					"pageTitle": "Not Found"
+				}
+			],
+			"metadata": {
+				"url": "https://doc.rust-lang.org/ch01-01-installation.html",
+				"title": "Not Found",
+				"depth": 1,
+				"crawledAt": "2026-02-02T06:10:43.412Z",
+				"tokensEstimate": 85
+			}
+		},
+		{
+			"url": "https://doc.rust-lang.org/appendix-05-editions.html",
+			"title": "Not Found",
+			"markdown": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+			"chunks": [
+				{
+					"id": "appendix_05_editions_chunk_1",
+					"content": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+					"tokensEstimate": 85,
+					"sourceUrl": "https://doc.rust-lang.org/appendix-05-editions.html",
+					"pageTitle": "Not Found"
+				}
+			],
+			"metadata": {
+				"url": "https://doc.rust-lang.org/appendix-05-editions.html",
+				"title": "Not Found",
+				"depth": 1,
+				"crawledAt": "2026-02-02T06:10:43.509Z",
+				"tokensEstimate": 85
+			}
+		},
+		{
+			"url": "https://doc.rust-lang.org/print.html",
+			"title": "Not Found",
+			"markdown": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+			"chunks": [
+				{
+					"id": "print_chunk_1",
+					"content": "Looks like you’ve taken a wrong turn.\n\nCopyright © 2011 The Rust Project Developers. Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) or the [MIT license](https://opensource.org/licenses/MIT), at your option.\n\nThis file may not be copied, modified, or distributed except according to those terms.",
+					"tokensEstimate": 85,
+					"sourceUrl": "https://doc.rust-lang.org/print.html",
+					"pageTitle": "Not Found"
+				}
+			],
+			"metadata": {
+				"url": "https://doc.rust-lang.org/print.html",
+				"title": "Not Found",
+				"depth": 1,
+				"crawledAt": "2026-02-02T06:10:43.585Z",
+				"tokensEstimate": 85
+			}
+		},
+		{
+			"url": "https://doc.rust-lang.org/stable/book",
+			"title": "The Rust Programming Language - The Rust Programming Language",
+			"markdown": "## Keyboard shortcuts\n\nPress ← or → to navigate between chapters\n\nPress S or / to search in the book\n\nPress ? to show this help\n\nPress Esc to hide this help\n\n## The Rust Programming Language\n\n## The Rust Programming Language\n\n*by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community*\n\nThis version of the text assumes you’re using Rust 1.90.0 (released 2025-09-18) or later with `edition = \"2024\"` in the *Cargo.toml* file of all projects to configure them to use Rust 2024 Edition idioms. See the [“Installation” section of Chapter 1](https://doc.rust-lang.org/stable/ch01-01-installation.html) for instructions on installing or updating Rust, and see [Appendix E](https://doc.rust-lang.org/stable/appendix-05-editions.html) for information on editions.\n\nThe HTML format is available online at https://doc.rust-lang.org/stable/book/ and offline with installations of Rust made with `rustup`; run `rustup doc --book` to open.\n\nSeveral community [translations](https://doc.rust-lang.org/stable/appendix-06-translation.html) are also available.\n\nThis text is available in [paperback and ebook format from No Starch Press](https://nostarch.com/rust-programming-language-3rd-edition).\n\n> **🚨 Want a more interactive learning experience? Try out a different version of the Rust Book, featuring: quizzes, highlighting, visualizations, and more**: [https://rust-book.cs.brown.edu](https://rust-book.cs.brown.edu/)",
+			"chunks": [
+				{
+					"id": "stable_book_chunk_1",
+					"content": "## Keyboard shortcuts\n\nPress ← or → to navigate between chapters\n\nPress S or / to search in the book\n\nPress ? to show this help\n\nPress Esc to hide this help\n\n## The Rust Programming Language",
+					"tokensEstimate": 47,
+					"sourceUrl": "https://doc.rust-lang.org/stable/book",
+					"pageTitle": "The Rust Programming Language - The Rust Programming Language"
+				},
+				{
+					"id": "stable_book_chunk_2",
+					"content": "## The Rust Programming Language\n\n*by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community*\n\nThis version of the text assumes you’re using Rust 1.90.0 (released 2025-09-18) or later with `edition = \"2024\"` in the *Cargo.toml* file of all projects to configure them to use Rust 2024 Edition idioms. See the [“Installation” section of Chapter 1](https://doc.rust-lang.org/stable/ch01-01-installation.html) for instructions on installing or updating Rust, and see [Appendix E](https://doc.rust-lang.org/stable/appendix-05-editions.html) for information on editions.\n\nThe HTML format is available online at https://doc.rust-lang.org/stable/book/ and offline with installations of Rust made with `rustup`; run `rustup doc --book` to open.\n\nSeveral community [translations](https://doc.rust-lang.org/stable/appendix-06-translation.html) are also available.\n\nThis text is available in [paperback and ebook format from No Starch Press](https://nostarch.com/rust-programming-language-3rd-edition).\n\n> **🚨 Want a more interactive learning experience? Try out a different version of the Rust Book, featuring: quizzes, highlighting, visualizations, and more**: [https://rust-book.cs.brown.edu](https://rust-book.cs.brown.edu/)",
+					"tokensEstimate": 312,
+					"sourceUrl": "https://doc.rust-lang.org/stable/book",
+					"pageTitle": "The Rust Programming Language - The Rust Programming Language"
+				}
+			],
+			"metadata": {
+				"url": "https://doc.rust-lang.org/stable/book",
+				"title": "The Rust Programming Language - The Rust Programming Language",
+				"depth": 1,
+				"crawledAt": "2026-02-02T06:10:43.679Z",
+				"tokensEstimate": 359
+			}
+		}
+	]
+}

@@ -1,7 +1,7 @@
 {
   "name": "web-content-scraper",
   "version": "1.0.0",
-  "description": "Apify Actor that crawls websites and extracts clean, token-efficient Markdown suitable for RAG pipelines and LLM workflows",
+  "description": "Apify Actor that crawls websites and extracts clean, token-efficient Markdown suitable for RAG pipelines and LLM workflows. Best for AI, LangChain, LlamaIndex.",
   "type": "module",
   "main": "dist/main.js",
   "scripts": {
@@ -22,7 +22,11 @@
     "llm",
     "rag",
     "markdown",
-    "content-extraction"
+    "content-extraction",
+    "ai",
+    "crawler",
+    "vector-database",
+    "langchain"
   ],
   "author": "",
   "license": "ISC",

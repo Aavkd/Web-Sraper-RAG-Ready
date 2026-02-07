@@ -1,8 +1,8 @@
 {
   "actorSpecification": 1,
   "name": "web-content-scraper",
-  "title": "Website to LLM-Ready Knowledge Extractor",
-  "description": "Crawls websites and extracts clean, token-efficient Markdown suitable for RAG pipelines and LLM workflows. Removes boilerplate content and produces structured, immediately-usable outputs.",
+  "title": "RAG Web Scraper: Website to Markdown",
+  "description": "Turn any website into clean, token-efficient Markdown ready for RAG and LLM pipelines. Removes boilerplate, handles JS rendering, and outputs structured JSON for LangChain/LlamaIndex.",
   "version": "1.0.0",
   "buildTag": "latest",
   "input": "../INPUT_SCHEMA.json",

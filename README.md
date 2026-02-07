@@ -2,7 +2,7 @@
 
 **Turn any website into clean, token-efficient Markdown ready for RAG and LLM pipelines.**
 
-![Clean Markdown vs Raw HTML](https://raw.githubusercontent.com/apify/actor-scraper/master/docs/img/before-after.png)
+![Clean Markdown vs Raw HTML](docs/img/before-after.svg)
 
 Most web scrapers return raw HTML soup or noisy text — LLMs don't need that. This project acts as a specialized filter that extracts only the meaningful content, removes boilerplate, and outputs LLM-ready Markdown plus structured JSON you can plug directly into your AI workflows (LangChain, LlamaIndex, Pinecone, etc.).
 
@@ -96,6 +96,9 @@ Optimized for Vector Databases.
   "enableChunking": true
 }
 ```
+
+### 🧠 Apify Run Options (Memory)
+If you plan to scrape **more than 20 pages** in a single run, it's recommended to **increase memory** in the Apify *Run options* (e.g., 2–4 GB) to avoid timeouts and ensure stable crawling.
 
 ## ⚙️ Configuration
 

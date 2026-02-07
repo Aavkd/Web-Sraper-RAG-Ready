@@ -1,0 +1,63 @@
+{
+	"source": "https://www.ada.gov/law-and-regs/ada/",
+	"crawledAt": "2026-02-02T05:47:50.880Z",
+	"summary": {
+		"pagesAttempted": 2,
+		"pagesExtracted": 2,
+		"pagesSkipped": 0,
+		"totalTokensEstimate": 841,
+		"startTime": "2026-02-02T05:47:46.654Z",
+		"endTime": "2026-02-02T05:47:50.872Z"
+	},
+	"pages": [
+		{
+			"url": "https://www.ada.gov/law-and-regs/ada",
+			"title": "Americans with Disabilities Act of 1990, As Amended",
+			"markdown": "Editor’s Note:\n\nHere is the text of the Americans with Disabilities Act of 1990 (ADA), including changes made by the ADA Amendments Act of 2008. Congress passed the ADA as a “Public Law,” and it originally was in a different format than presented here. To make the law more widely available, the ADA was later reformatted and published in volume 42 (called “title 42”) of the United States Code. One small part of the ADA is found in title 47 of the United States Code. The text below mirrors the law as it is found in the U.S. Code. Because the numbering system is different in the U.S. Code, the headings provide in brackets the title numbers of the ADA as originally enacted.\n\nRead this document to understand your legal rights or responsibilities under the ADA.\n\n- For a beginner-level introduction to a topic, view [Topics](https://www.ada.gov/topics)- For more detailed information on a topic, view [Guidance & Resource materials](https://www.ada.gov/resources)",
+			"chunks": [
+				{
+					"id": "law_and_regs_ada_chunk_1",
+					"content": "Editor’s Note:\n\nHere is the text of the Americans with Disabilities Act of 1990 (ADA), including changes made by the ADA Amendments Act of 2008. Congress passed the ADA as a “Public Law,” and it originally was in a different format than presented here. To make the law more widely available, the ADA was later reformatted and published in volume 42 (called “title 42”) of the United States Code. One small part of the ADA is found in title 47 of the United States Code. The text below mirrors the law as it is found in the U.S. Code. Because the numbering system is different in the U.S. Code, the headings provide in brackets the title numbers of the ADA as originally enacted.\n\nRead this document to understand your legal rights or responsibilities under the ADA.\n\n- For a beginner-level introduction to a topic, view [Topics](https://www.ada.gov/topics)- For more detailed information on a topic, view [Guidance & Resource materials](https://www.ada.gov/resources)",
+					"tokensEstimate": 241,
+					"sourceUrl": "https://www.ada.gov/law-and-regs/ada",
+					"pageTitle": "Americans with Disabilities Act of 1990, As Amended"
+				}
+			],
+			"metadata": {
+				"url": "https://www.ada.gov/law-and-regs/ada",
+				"title": "Americans with Disabilities Act of 1990, As Amended",
+				"depth": 0,
+				"crawledAt": "2026-02-02T05:47:50.062Z",
+				"tokensEstimate": 241
+			}
+		},
+		{
+			"url": "https://www.ada.gov/",
+			"title": "The Americans with Disabilities Act",
+			"markdown": "!['American flag flying in front of a government building'](https://www.ada.gov/assets/images/hero-flag-mobile.jpg)\n\n## The Americans with Disabilities Act (ADA) protects people with disabilities from discrimination.\n\nDisability rights are civil rights. From voting to parking, the ADA is a law that protects people with disabilities in many areas of public life.\n\n## New on ADA.gov\n\nExplore the new content we've added to ADA.gov\n\n- ### [Help](https://www.ada.gov/help/)\n\nWe're here to help. Get answers to your questions, learn about popular topics, and find resources for more support.\n\n## What's on ADA.gov\n\nFrom answers to common questions to official legal documents, ADA.gov has everything you need to understand your rights and responsibilities under the ADA.\n\n## Service Animals and the ADA\n\nUnderstand how the ADA defines a service animal and what your rights are under the law.\n\n## Topics\n\nInformation for people with disabilities, state and local governments, and businesses\n\n- How the ADA is structured, and how it protects the rights of people with disabilities- The definition of a service animal, where they can go, and how they assist people with disabilities- Find out how the ADA requires businesses, non-profits, and state/local governments to provide accessible parking spaces.- People with certain disabilities might communicate in different ways.\n\n## How to Report a Disability Rights Violation\n\nIf you believe that you or someone else experienced unlawful discrimination, you can report a disability rights violation.\n\n1\n\n### Report using our online form.\n\nBy completing the online form, you can provide the details we need to understand what happened. You will receive a confirmation number and your report is immediately sent to our staff for review.\n\n2\n\n### We review your report.\n\nTeams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will try to connect your complaint to the right group.\n\n3\n\n### We determine next steps and get back to you.\n\nPossible outcomes include: following up for more information, starting a mediation or investigation, directing you to another organization for further help, or informing you that we cannot help.\n\n## Think you or someone you know has experienced a disability rights violation?\n\n[File a complaint](https://www.ada.gov/file-a-complaint/)\n\n## Subscribe to our newsletter for ADA updates",
+			"chunks": [
+				{
+					"id": "home_chunk_1",
+					"content": "!['American flag flying in front of a government building'](https://www.ada.gov/assets/images/hero-flag-mobile.jpg)\n\n## The Americans with Disabilities Act (ADA) protects people with disabilities from discrimination.\n\nDisability rights are civil rights. From voting to parking, the ADA is a law that protects people with disabilities in many areas of public life.\n\n## New on ADA.gov\n\nExplore the new content we've added to ADA.gov\n\n- ### [Help](https://www.ada.gov/help/)\n\nWe're here to help. Get answers to your questions, learn about popular topics, and find resources for more support.\n\n## What's on ADA.gov\n\nFrom answers to common questions to official legal documents, ADA.gov has everything you need to understand your rights and responsibilities under the ADA.\n\n## Service Animals and the ADA\n\nUnderstand how the ADA defines a service animal and what your rights are under the law.",
+					"tokensEstimate": 220,
+					"sourceUrl": "https://www.ada.gov/",
+					"pageTitle": "The Americans with Disabilities Act"
+				},
+				{
+					"id": "home_chunk_2",
+					"content": "## Topics\n\nInformation for people with disabilities, state and local governments, and businesses\n\n- How the ADA is structured, and how it protects the rights of people with disabilities- The definition of a service animal, where they can go, and how they assist people with disabilities- Find out how the ADA requires businesses, non-profits, and state/local governments to provide accessible parking spaces.- People with certain disabilities might communicate in different ways.\n\n## How to Report a Disability Rights Violation\n\nIf you believe that you or someone else experienced unlawful discrimination, you can report a disability rights violation.\n\n1\n\n### Report using our online form.\n\nBy completing the online form, you can provide the details we need to understand what happened. You will receive a confirmation number and your report is immediately sent to our staff for review.\n\n2\n\n### We review your report.\n\nTeams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will try to connect your complaint to the right group.\n\n3\n\n### We determine next steps and get back to you.\n\nPossible outcomes include: following up for more information, starting a mediation or investigation, directing you to another organization for further help, or informing you that we cannot help.\n\n## Think you or someone you know has experienced a disability rights violation?\n\n[File a complaint](https://www.ada.gov/file-a-complaint/)\n\n## Subscribe to our newsletter for ADA updates",
+					"tokensEstimate": 381,
+					"sourceUrl": "https://www.ada.gov/",
+					"pageTitle": "The Americans with Disabilities Act"
+				}
+			],
+			"metadata": {
+				"url": "https://www.ada.gov/",
+				"title": "The Americans with Disabilities Act",
+				"depth": 1,
+				"crawledAt": "2026-02-02T05:47:50.809Z",
+				"tokensEstimate": 600
+			}
+		}
+	]
+}

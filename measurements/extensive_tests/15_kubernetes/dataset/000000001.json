@@ -1,0 +1,217 @@
+{
+	"source": "https://kubernetes.io/docs/home/",
+	"crawledAt": "2026-02-02T05:59:15.845Z",
+	"summary": {
+		"pagesAttempted": 10,
+		"pagesExtracted": 5,
+		"pagesSkipped": 5,
+		"totalTokensEstimate": 4499,
+		"startTime": "2026-02-02T05:59:07.614Z",
+		"endTime": "2026-02-02T05:59:15.837Z"
+	},
+	"pages": [
+		{
+			"url": "https://kubernetes.io/docs/home",
+			"title": "Kubernetes Documentation",
+			"markdown": "Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).\n\n\n\n## Understand Kubernetes\n\nLearn about Kubernetes and its fundamental concepts.\n\n- [Why Kubernetes?](https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do)\n- [Components of a cluster](https://kubernetes.io/docs/concepts/overview/components/)\n- [The Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/)\n- [Objects In Kubernetes](https://kubernetes.io/docs/concepts/overview/working-with-objects/)\n- [Containers](https://kubernetes.io/docs/concepts/containers/)\n- [Workloads and Pods](https://kubernetes.io/docs/concepts/workloads/)\n\n## Try Kubernetes\n\nFollow tutorials to learn how to deploy applications in Kubernetes.\n\n- [Hello Minikube](https://kubernetes.io/docs/tutorials/hello-minikube/)\n- [Walkthrough the basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/)\n- [Stateless Example: PHP Guestbook with Redis](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/)\n- [Stateful Example: Wordpress with Persistent Volumes](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)\n\n## Set up a K8s cluster\n\nGet Kubernetes running based on your resources and needs.\n\n- [Learning environment](https://kubernetes.io/docs/setup/#learning-environment)\n- [Production environment](https://kubernetes.io/docs/setup/#production-environment)\n- [Install the kubeadm setup tool](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)\n- [Metrics](https://kubernetes.io/docs/concepts/cluster-administration/observability/#metrics)\n- [Logs](https://kubernetes.io/docs/concepts/cluster-administration/observability/#logs)\n- [Traces](https://kubernetes.io/docs/concepts/cluster-administration/observability/#traces)\n- [Securing a cluster](https://kubernetes.io/docs/concepts/cluster-administration/#securing-a-cluster)\n- [kubeadm command reference](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)\n\n## Learn how to use Kubernetes\n\nLook up common tasks and how to perform them using a short sequence of steps.\n\n- [kubectl Quick Reference](https://kubernetes.io/docs/reference/kubectl/quick-reference/)\n- [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)\n- [Configure access to clusters](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)\n- [Use the Web UI Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)\n- [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)\n- [Getting help](https://kubernetes.io/docs/tasks/debug/)\n\n## Look up reference information\n\nBrowse terminology, command line syntax, API resource types, and setup tool documentation.\n\n- [Glossary](https://kubernetes.io/docs/reference/glossary/)\n- [kubectl command line tool](https://kubernetes.io/docs/reference/kubectl/)\n- [Labels, annotations and taints](https://kubernetes.io/docs/reference/labels-annotations-taints/#labels-annotations-and-taints-used-on-api-objects)\n- [Kubernetes API reference](https://kubernetes.io/docs/reference/kubernetes-api/)\n- [Overview of API](https://kubernetes.io/docs/reference/using-api/)\n- [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)\n\n## Contribute to Kubernetes\n\nFind out how you can help make Kubernetes better.\n\n- [Contribute to Kubernetes](https://kubernetes.io/docs/contribute/)\n- [Contribute to documentation](https://kubernetes.io/docs/contribute/docs/)\n- [Suggest content improvements](https://kubernetes.io/docs/contribute/suggesting-improvements/#opening-an-issue)\n- [Opening a pull request](https://kubernetes.io/docs/contribute/new-content/open-a-pr/)\n- [Documenting a feature for a release](https://kubernetes.io/docs/contribute/new-content/new-features/)\n- [Localizing the docs](https://kubernetes.io/docs/contribute/localization/)\n- [Participating in SIG Docs](https://kubernetes.io/docs/contribute/participate/)\n- [Viewing Site Analytics](https://kubernetes.io/docs/contribute/analytics/)\n\n## Training\n\nGet certified in Kubernetes and make your cloud native projects successful!\n\n## Download Kubernetes\n\nInstall Kubernetes or upgrade to the newest version.\n\n## About the documentation\n\nThis website contains documentation for the current and previous 4 versions of Kubernetes.\n\nLast modified August 07, 2025 at 9:34 PM PST: [Prepare docs home page for Docsy (710d15e99b)](https://github.com/kubernetes/website/commit/710d15e99b77f6b837d12439e4b3110c27332c7a)",
+			"chunks": [
+				{
+					"id": "docs_home_chunk_1",
+					"content": "Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).",
+					"tokensEstimate": 64,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_2",
+					"content": "## Understand Kubernetes\n\nLearn about Kubernetes and its fundamental concepts.\n\n- [Why Kubernetes?](https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do)\n- [Components of a cluster](https://kubernetes.io/docs/concepts/overview/components/)\n- [The Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/)\n- [Objects In Kubernetes](https://kubernetes.io/docs/concepts/overview/working-with-objects/)\n- [Containers](https://kubernetes.io/docs/concepts/containers/)\n- [Workloads and Pods](https://kubernetes.io/docs/concepts/workloads/)",
+					"tokensEstimate": 147,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_3",
+					"content": "## Try Kubernetes\n\nFollow tutorials to learn how to deploy applications in Kubernetes.\n\n- [Hello Minikube](https://kubernetes.io/docs/tutorials/hello-minikube/)\n- [Walkthrough the basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/)\n- [Stateless Example: PHP Guestbook with Redis](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/)\n- [Stateful Example: Wordpress with Persistent Volumes](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)",
+					"tokensEstimate": 128,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_4",
+					"content": "## Set up a K8s cluster\n\nGet Kubernetes running based on your resources and needs.\n\n- [Learning environment](https://kubernetes.io/docs/setup/#learning-environment)\n- [Production environment](https://kubernetes.io/docs/setup/#production-environment)\n- [Install the kubeadm setup tool](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)\n- [Metrics](https://kubernetes.io/docs/concepts/cluster-administration/observability/#metrics)\n- [Logs](https://kubernetes.io/docs/concepts/cluster-administration/observability/#logs)\n- [Traces](https://kubernetes.io/docs/concepts/cluster-administration/observability/#traces)\n- [Securing a cluster](https://kubernetes.io/docs/concepts/cluster-administration/#securing-a-cluster)\n- [kubeadm command reference](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)",
+					"tokensEstimate": 210,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_5",
+					"content": "## Learn how to use Kubernetes\n\nLook up common tasks and how to perform them using a short sequence of steps.\n\n- [kubectl Quick Reference](https://kubernetes.io/docs/reference/kubectl/quick-reference/)\n- [Install kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)\n- [Configure access to clusters](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)\n- [Use the Web UI Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)\n- [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)\n- [Getting help](https://kubernetes.io/docs/tasks/debug/)",
+					"tokensEstimate": 172,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_6",
+					"content": "## Look up reference information\n\nBrowse terminology, command line syntax, API resource types, and setup tool documentation.\n\n- [Glossary](https://kubernetes.io/docs/reference/glossary/)\n- [kubectl command line tool](https://kubernetes.io/docs/reference/kubectl/)\n- [Labels, annotations and taints](https://kubernetes.io/docs/reference/labels-annotations-taints/#labels-annotations-and-taints-used-on-api-objects)\n- [Kubernetes API reference](https://kubernetes.io/docs/reference/kubernetes-api/)\n- [Overview of API](https://kubernetes.io/docs/reference/using-api/)\n- [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)",
+					"tokensEstimate": 166,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				},
+				{
+					"id": "docs_home_chunk_7",
+					"content": "## Contribute to Kubernetes\n\nFind out how you can help make Kubernetes better.\n\n- [Contribute to Kubernetes](https://kubernetes.io/docs/contribute/)\n- [Contribute to documentation](https://kubernetes.io/docs/contribute/docs/)\n- [Suggest content improvements](https://kubernetes.io/docs/contribute/suggesting-improvements/#opening-an-issue)\n- [Opening a pull request](https://kubernetes.io/docs/contribute/new-content/open-a-pr/)\n- [Documenting a feature for a release](https://kubernetes.io/docs/contribute/new-content/new-features/)\n- [Localizing the docs](https://kubernetes.io/docs/contribute/localization/)\n- [Participating in SIG Docs](https://kubernetes.io/docs/contribute/participate/)\n- [Viewing Site Analytics](https://kubernetes.io/docs/contribute/analytics/)\n\n## Training\n\nGet certified in Kubernetes and make your cloud native projects successful!\n\n## Download Kubernetes\n\nInstall Kubernetes or upgrade to the newest version.\n\n## About the documentation\n\nThis website contains documentation for the current and previous 4 versions of Kubernetes.\n\nLast modified August 07, 2025 at 9:34 PM PST: [Prepare docs home page for Docsy (710d15e99b)](https://github.com/kubernetes/website/commit/710d15e99b77f6b837d12439e4b3110c27332c7a)",
+					"tokensEstimate": 308,
+					"sourceUrl": "https://kubernetes.io/docs/home",
+					"pageTitle": "Kubernetes Documentation"
+				}
+			],
+			"metadata": {
+				"url": "https://kubernetes.io/docs/home",
+				"title": "Kubernetes Documentation",
+				"depth": 0,
+				"crawledAt": "2026-02-02T05:59:10.990Z",
+				"tokensEstimate": 1194
+			}
+		},
+		{
+			"url": "https://kubernetes.io/",
+			"title": "Production-Grade Container Orchestration",
+			"markdown": "[Kubernetes](https://kubernetes.io/docs/concepts/overview/), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.\n\nIt groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.\n\n#### Planet scale\n\nDesigned on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.\n\n#### Never outgrow\n\nWhether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.\n\n#### Run K8s anywhere\n\nKubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.\n\nTo download Kubernetes, visit the [download](https://kubernetes.io/releases/download/) section.\n\n## The Absolute Beginner's Guide To Cloud Native\n\n## Attend upcoming KubeCon + CloudNativeCon events\n\n## Kubernetes Features\n\n### [Automated rollouts and rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)\n\nKubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.\n\n### [Service discovery and load balancing](https://kubernetes.io/docs/concepts/services-networking/service/)\n\nNo need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.\n\n### [Storage orchestration](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)\n\nAutomatically mount the storage system of your choice, whether from local storage, a public cloud provider, or a network storage system such as iSCSI or NFS.\n\n### [Secret and configuration management](https://kubernetes.io/docs/concepts/configuration/secret/)\n\nDeploy and update Secrets and application configuration without rebuilding your image and without exposing Secrets in your stack configuration.\n\n### [Automatic bin packing](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)\n\nAutomatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.\n\n### [Batch execution](https://kubernetes.io/docs/concepts/workloads/controllers/job/)\n\nIn addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.\n\n### [Self-healing](https://kubernetes.io/docs/concepts/architecture/self-healing/#automated-recovery-from-damage)\n\nKubernetes restarts containers that crash, replaces entire Pods where needed, reattaches storage in response to wider failures, and can integrate with node autoscalers to self-heal even at the node level.\n\n### [Horizontal scaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)\n\nScale your application up and down with a simple command, with a UI, or automatically based on CPU usage.\n\n### [Vertical scaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)\n\nAutomatically adjust resource requests and limits based on actual usage patterns.\n\n### [Case Studies](https://kubernetes.io/case-studies/)\n\n![Babylon Case Study](https://kubernetes.io/case-studies/babylon/babylon_featured_logo.svg)\n\n\"Kubernetes is a great platform for machine learning because it comes with all the scheduling and …\"\n\n[Read more](https://kubernetes.io/case-studies/babylon/)\n\n![Booz Allen Case Study](https://kubernetes.io/case-studies/booz-allen/booz-allen_featured_logo.svg)\n\n\"Kubernetes is a great solution for us. It allows us to rapidly iterate on our clients' demands. \"\n\n[Read more](https://kubernetes.io/case-studies/booz-allen/)\n\n![Booking.com Case Study](https://kubernetes.io/case-studies/booking-com/booking.com_featured_logo.svg)\n\n\"We realized that we needed to learn Kubernetes better in order to fully use the potential of it. At …\"\n\n[Read more](https://kubernetes.io/case-studies/booking-com/)\n\n![AppDirect Case Study](https://kubernetes.io/case-studies/appdirect/appdirect_featured_logo.svg)\n\n\"We made the right decisions at the right time. Kubernetes and the cloud native technologies are now …\"\n\n[Read more](https://kubernetes.io/case-studies/appdirect/)\n\nWe are a [CNCF](https://cncf.io/) graduated project\n\n![Cloud Native Computing Foundation logo](https://kubernetes.io/images/cncf-logo-white.svg)",
+			"chunks": [
+				{
+					"id": "home_chunk_1",
+					"content": "[Kubernetes](https://kubernetes.io/docs/concepts/overview/), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.\n\nIt groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.\n\n#### Planet scale\n\nDesigned on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.\n\n#### Never outgrow\n\nWhether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.\n\n#### Run K8s anywhere\n\nKubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.\n\nTo download Kubernetes, visit the [download](https://kubernetes.io/releases/download/) section.\n\n## The Absolute Beginner's Guide To Cloud Native\n\n## Attend upcoming KubeCon + CloudNativeCon events\n\n## Kubernetes Features",
+					"tokensEstimate": 324,
+					"sourceUrl": "https://kubernetes.io/",
+					"pageTitle": "Production-Grade Container Orchestration"
+				},
+				{
+					"id": "home_chunk_2",
+					"content": "### [Automated rollouts and rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)\n\nKubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.\n\n### [Service discovery and load balancing](https://kubernetes.io/docs/concepts/services-networking/service/)\n\nNo need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.\n\n### [Storage orchestration](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)\n\nAutomatically mount the storage system of your choice, whether from local storage, a public cloud provider, or a network storage system such as iSCSI or NFS.\n\n### [Secret and configuration management](https://kubernetes.io/docs/concepts/configuration/secret/)\n\nDeploy and update Secrets and application configuration without rebuilding your image and without exposing Secrets in your stack configuration.\n\n### [Automatic bin packing](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)\n\nAutomatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.\n\n### [Batch execution](https://kubernetes.io/docs/concepts/workloads/controllers/job/)\n\nIn addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.\n\n### [Self-healing](https://kubernetes.io/docs/concepts/architecture/self-healing/#automated-recovery-from-damage)\n\nKubernetes restarts containers that crash, replaces entire Pods where needed, reattaches storage in response to wider failures, and can integrate with node autoscalers to self-heal even at the node level.\n\n### [Horizontal scaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)\n\nScale your application up and down with a simple command, with a UI, or automatically based on CPU usage.\n\n### [Vertical scaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)\n\nAutomatically adjust resource requests and limits based on actual usage patterns.",
+					"tokensEstimate": 626,
+					"sourceUrl": "https://kubernetes.io/",
+					"pageTitle": "Production-Grade Container Orchestration"
+				},
+				{
+					"id": "home_chunk_3",
+					"content": "### [Case Studies](https://kubernetes.io/case-studies/)\n\n![Babylon Case Study](https://kubernetes.io/case-studies/babylon/babylon_featured_logo.svg)\n\n\"Kubernetes is a great platform for machine learning because it comes with all the scheduling and …\"\n\n[Read more](https://kubernetes.io/case-studies/babylon/)\n\n![Booz Allen Case Study](https://kubernetes.io/case-studies/booz-allen/booz-allen_featured_logo.svg)\n\n\"Kubernetes is a great solution for us. It allows us to rapidly iterate on our clients' demands. \"\n\n[Read more](https://kubernetes.io/case-studies/booz-allen/)\n\n![Booking.com Case Study](https://kubernetes.io/case-studies/booking-com/booking.com_featured_logo.svg)\n\n\"We realized that we needed to learn Kubernetes better in order to fully use the potential of it. At …\"\n\n[Read more](https://kubernetes.io/case-studies/booking-com/)\n\n![AppDirect Case Study](https://kubernetes.io/case-studies/appdirect/appdirect_featured_logo.svg)\n\n\"We made the right decisions at the right time. Kubernetes and the cloud native technologies are now …\"\n\n[Read more](https://kubernetes.io/case-studies/appdirect/)\n\nWe are a [CNCF](https://cncf.io/) graduated project\n\n![Cloud Native Computing Foundation logo](https://kubernetes.io/images/cncf-logo-white.svg)",
+					"tokensEstimate": 310,
+					"sourceUrl": "https://kubernetes.io/",
+					"pageTitle": "Production-Grade Container Orchestration"
+				}
+			],
+			"metadata": {
+				"url": "https://kubernetes.io/",
+				"title": "Production-Grade Container Orchestration",
+				"depth": 1,
+				"crawledAt": "2026-02-02T05:59:11.359Z",
+				"tokensEstimate": 1260
+			}
+		},
+		{
+			"url": "https://kubernetes.io/docs",
+			"title": "Kubernetes Documentation",
+			"markdown": "© 2026 The Kubernetes Authors | Documentation Distributed under [CC BY 4.0](https://git.k8s.io/website/LICENSE)\n\n© 2026 The Linux Foundation ®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our [Trademark Usage page](https://www.linuxfoundation.org/trademark-usage)\n\nICP license: 京ICP备17074266号-3",
+			"chunks": [
+				{
+					"id": "docs_chunk_1",
+					"content": "© 2026 The Kubernetes Authors | Documentation Distributed under [CC BY 4.0](https://git.k8s.io/website/LICENSE)\n\n© 2026 The Linux Foundation ®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our [Trademark Usage page](https://www.linuxfoundation.org/trademark-usage)\n\nICP license: 京ICP备17074266号-3",
+					"tokensEstimate": 100,
+					"sourceUrl": "https://kubernetes.io/docs",
+					"pageTitle": "Kubernetes Documentation"
+				}
+			],
+			"metadata": {
+				"url": "https://kubernetes.io/docs",
+				"title": "Kubernetes Documentation",
+				"depth": 1,
+				"crawledAt": "2026-02-02T05:59:13.154Z",
+				"tokensEstimate": 100
+			}
+		},
+		{
+			"url": "https://kubernetes.io/training",
+			"title": "Training",
+			"markdown": "## Build your cloud native career\n\nKubernetes is at the core of the cloud native movement. Training and certifications from the Linux Foundation and our training partners lets you invest in your career, learn Kubernetes, and make your cloud native projects successful.\n\n## Take a free course on edX\n\n##### **Introduction to Kubernetes** \n\nWant to learn Kubernetes? Get an in-depth primer on this powerful system for managing containerized applications.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-kubernetes)\n\n##### **Introduction to Cloud Infrastructure Technologies**\n\nLearn the fundamentals of building and managing cloud technologies directly from The Linux Foundation, the leader in open source.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-cloud-infrastructure-technologies)\n\n##### **Introduction to Linux**\n\nNever learned Linux? Want a refresh? Develop a good working knowledge of Linux using both the graphical interface and command line across the major Linux distribution families.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-linux)\n\n## Learn with the Linux Foundation\n\nThe Linux Foundation offers instructor-led and self-paced courses for all aspects of the Kubernetes application development and operations lifecycle.\n\n[See Courses](https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes)\n\n## Get Kubernetes Certified\n\n##### **Kubernetes and Cloud Native Associate (KCNA)**\n\nThe Kubernetes and Cloud Native Associate (KCNA) exam demonstrates a user’s foundational knowledge and skills in Kubernetes and the wider cloud native ecosystem.\n\nA certified KCNA will confirm conceptual knowledge of the entire cloud native ecosystem, particularly focusing on Kubernetes.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate/)\n\n##### **Kubernetes and Cloud Native Security Associate (KCSA)**\n\nThe KCSA is a pre-professional certification designed for candidates interested in advancing to the professional level through a demonstrated understanding of foundational knowledge and skills of security technologies in the cloud native ecosystem.\n\nA certified KCSA will confirm an understanding of the baseline security configuration of Kubernetes clusters to meet compliance objectives.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-security-associate-kcsa/)\n\n##### **Certified Kubernetes Application Developer (CKAD)**\n\nThe Certified Kubernetes Application Developer exam certifies that users can design, build, configure, and expose cloud native applications for Kubernetes.\n\nA CKAD can define application resources and use core primitives to build, monitor, and troubleshoot scalable applications and tools in Kubernetes.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/)\n\n##### **Certified Kubernetes Administrator (CKA)**\n\nThe Certified Kubernetes Administrator (CKA) program provides assurance that CKAs have the skills, knowledge, and competency to perform the responsibilities of Kubernetes administrators.\n\nA certified Kubernetes administrator has demonstrated the ability to do basic installation as well as configuring and managing production-grade Kubernetes clusters.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/)\n\n##### **Certified Kubernetes Security Specialist (CKS)**\n\nThe Certified Kubernetes Security Specialist program provides assurance that the holder is comfortable and competent with a broad range of best practices. CKS certification covers skills for securing container-based applications and Kubernetes platforms during build, deployment and runtime.\n\n*Candidates for CKS must hold a current Certified Kubernetes Administrator (CKA) certification to demonstrate they possess sufficient Kubernetes expertise before sitting for the CKS.*\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/)\n\n## Kubestronaut Program: Elevate Your Kubernetes Expertise\n\nThe CNCF's Kubestronaut Program celebrates and recognizes exceptional community leaders who have demonstrated a profound commitment to mastering Kubernetes. This prestigious initiative highlights individuals who have consistently invested in their ongoing education and achieved the highest levels of proficiency. To earn the esteemed title of Kubestronaut, individuals must successfully obtain and maintain all five CNCF Kubernetes certifications: Certified Kubernetes Administrator (CKA), Certified Kubernetes Application Developer (CKAD), Certified Kubernetes Security Specialist (CKS), Kubernetes and Cloud Native Associate (KCNA), and Kubernetes and Cloud Native Security Associate (KCSA).\n\n## Kubernetes Training Partners\n\nOur network of Kubernetes Training Partners provide training services for Kubernetes and cloud native projects.",
+			"chunks": [
+				{
+					"id": "training_chunk_1",
+					"content": "## Build your cloud native career\n\nKubernetes is at the core of the cloud native movement. Training and certifications from the Linux Foundation and our training partners lets you invest in your career, learn Kubernetes, and make your cloud native projects successful.\n\n## Take a free course on edX\n\n##### **Introduction to Kubernetes**\n\nWant to learn Kubernetes? Get an in-depth primer on this powerful system for managing containerized applications.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-kubernetes)\n\n##### **Introduction to Cloud Infrastructure Technologies**\n\nLearn the fundamentals of building and managing cloud technologies directly from The Linux Foundation, the leader in open source.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-cloud-infrastructure-technologies)\n\n##### **Introduction to Linux**\n\nNever learned Linux? Want a refresh? Develop a good working knowledge of Linux using both the graphical interface and command line across the major Linux distribution families.\n\n\n[Go to Course](https://www.edx.org/course/introduction-to-linux)\n\n## Learn with the Linux Foundation\n\nThe Linux Foundation offers instructor-led and self-paced courses for all aspects of the Kubernetes application development and operations lifecycle.\n\n[See Courses](https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes)\n\n## Get Kubernetes Certified",
+					"tokensEstimate": 348,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_2",
+					"content": "##### **Kubernetes and Cloud Native Associate (KCNA)**\n\nThe Kubernetes and Cloud Native Associate (KCNA) exam demonstrates a user’s foundational knowledge and skills in Kubernetes and the wider cloud native ecosystem.\n\nA certified KCNA will confirm conceptual knowledge of the entire cloud native ecosystem, particularly focusing on Kubernetes.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate/)",
+					"tokensEstimate": 113,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_3",
+					"content": "##### **Kubernetes and Cloud Native Security Associate (KCSA)**\n\nThe KCSA is a pre-professional certification designed for candidates interested in advancing to the professional level through a demonstrated understanding of foundational knowledge and skills of security technologies in the cloud native ecosystem.\n\nA certified KCSA will confirm an understanding of the baseline security configuration of Kubernetes clusters to meet compliance objectives.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-security-associate-kcsa/)",
+					"tokensEstimate": 145,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_4",
+					"content": "##### **Certified Kubernetes Application Developer (CKAD)**\n\nThe Certified Kubernetes Application Developer exam certifies that users can design, build, configure, and expose cloud native applications for Kubernetes.\n\nA CKAD can define application resources and use core primitives to build, monitor, and troubleshoot scalable applications and tools in Kubernetes.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/)",
+					"tokensEstimate": 122,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_5",
+					"content": "##### **Certified Kubernetes Administrator (CKA)**\n\nThe Certified Kubernetes Administrator (CKA) program provides assurance that CKAs have the skills, knowledge, and competency to perform the responsibilities of Kubernetes administrators.\n\nA certified Kubernetes administrator has demonstrated the ability to do basic installation as well as configuring and managing production-grade Kubernetes clusters.\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/)",
+					"tokensEstimate": 129,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_6",
+					"content": "##### **Certified Kubernetes Security Specialist (CKS)**\n\nThe Certified Kubernetes Security Specialist program provides assurance that the holder is comfortable and competent with a broad range of best practices. CKS certification covers skills for securing container-based applications and Kubernetes platforms during build, deployment and runtime.\n\n*Candidates for CKS must hold a current Certified Kubernetes Administrator (CKA) certification to demonstrate they possess sufficient Kubernetes expertise before sitting for the CKS.*\n\n[Go to Certification](https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/)",
+					"tokensEstimate": 162,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				},
+				{
+					"id": "training_chunk_7",
+					"content": "## Kubestronaut Program: Elevate Your Kubernetes Expertise\n\nThe CNCF's Kubestronaut Program celebrates and recognizes exceptional community leaders who have demonstrated a profound commitment to mastering Kubernetes. This prestigious initiative highlights individuals who have consistently invested in their ongoing education and achieved the highest levels of proficiency. To earn the esteemed title of Kubestronaut, individuals must successfully obtain and maintain all five CNCF Kubernetes certifications: Certified Kubernetes Administrator (CKA), Certified Kubernetes Application Developer (CKAD), Certified Kubernetes Security Specialist (CKS), Kubernetes and Cloud Native Associate (KCNA), and Kubernetes and Cloud Native Security Associate (KCSA).\n\n## Kubernetes Training Partners\n\nOur network of Kubernetes Training Partners provide training services for Kubernetes and cloud native projects.",
+					"tokensEstimate": 225,
+					"sourceUrl": "https://kubernetes.io/training",
+					"pageTitle": "Training"
+				}
+			],
+			"metadata": {
+				"url": "https://kubernetes.io/training",
+				"title": "Training",
+				"depth": 1,
+				"crawledAt": "2026-02-02T05:59:13.320Z",
+				"tokensEstimate": 1244
+			}
+		},
+		{
+			"url": "https://kubernetes.io/blog",
+			"title": "Kubernetes Blog",
+			"markdown": "## Posts in 2026\n\n- ##### [Experimenting with Gateway API using kind](https://kubernetes.io/blog/2026/01/28/experimenting-gateway-api-with-kind/)\n\nBy **[Ricardo Katz](https://github.com/rikatz) (Red Hat)** | Wednesday, January 28, 2026 in Blog\n\nThis document will guide you through setting up a local experimental environment with Gateway API on kind. This setup is designed for learning and testing. It helps you understand Gateway API concepts without production complexity. Caution:This is an …\n\n[Read more](https://kubernetes.io/blog/2026/01/28/experimenting-gateway-api-with-kind/)- ##### [Cluster API v1.12: Introducing In-place Updates and Chained Upgrades](https://kubernetes.io/blog/2026/01/27/cluster-api-v1-12-release/)\n\nBy **Fabrizio Pandini (Broadcom)** | Tuesday, January 27, 2026 in Blog\n\nCluster API brings declarative management to Kubernetes cluster lifecycle, allowing users and platform teams to define the desired state of clusters and rely on controllers to continuously reconcile toward it. Similar to how you can use StatefulSets …\n\n[Read more](https://kubernetes.io/blog/2026/01/27/cluster-api-v1-12-release/)- ##### [Headlamp in 2025: Project Highlights](https://kubernetes.io/blog/2026/01/22/headlamp-in-2025-project-highlights/)\n\nBy **Evangelos Skopelitis (Microsoft)** | Thursday, January 22, 2026 in Blog\n\nThis announcement is a recap from a post originally published on the Headlamp blog. Headlamp has come a long way in 2025. The project has continued to grow – reaching more teams across platforms, powering new workflows and integrations through …\n\n[Read more](https://kubernetes.io/blog/2026/01/22/headlamp-in-2025-project-highlights/)\n\n- ##### [Uniform API server access using clientcmd](https://kubernetes.io/blog/2026/01/19/clientcmd-apiserver-access/)\n\nBy **[Stephen Kitt](https://github.com/skitt) (Red Hat)** | Monday, January 19, 2026 in Blog\n\nIf you've ever wanted to develop a command line client for a Kubernetes API, especially if you've considered making your client usable as a kubectl plugin, you might have wondered how to make your client feel familiar to users of kubectl. A quick …\n\n[Read more](https://kubernetes.io/blog/2026/01/19/clientcmd-apiserver-access/)\n\n- ##### [Kubernetes v1.35: Mutable PersistentVolume Node Affinity (alpha)](https://kubernetes.io/blog/2026/01/08/kubernetes-v1-35-mutable-pv-nodeaffinity/)\n\nBy **Weiwen Hu (Alibaba Cloud), YuanHui Qiu (Alibaba Cloud)** | Thursday, January 08, 2026 in Blog\n\nThe PersistentVolume node affinity API dates back to Kubernetes v1.10. It is widely used to express that volumes may not be equally accessible by all nodes in the cluster. This field was previously immutable, and it is now mutable in Kubernetes v1.35 …\n\n[Read more](https://kubernetes.io/blog/2026/01/08/kubernetes-v1-35-mutable-pv-nodeaffinity/)",
+			"chunks": [
+				{
+					"id": "blog_chunk_1",
+					"content": "## Posts in 2026\n\n- ##### [Experimenting with Gateway API using kind](https://kubernetes.io/blog/2026/01/28/experimenting-gateway-api-with-kind/)\n\nBy **[Ricardo Katz](https://github.com/rikatz) (Red Hat)** | Wednesday, January 28, 2026 in Blog\n\nThis document will guide you through setting up a local experimental environment with Gateway API on kind. This setup is designed for learning and testing. It helps you understand Gateway API concepts without production complexity. Caution:This is an …\n\n[Read more](https://kubernetes.io/blog/2026/01/28/experimenting-gateway-api-with-kind/)- ##### [Cluster API v1.12: Introducing In-place Updates and Chained Upgrades](https://kubernetes.io/blog/2026/01/27/cluster-api-v1-12-release/)\n\nBy **Fabrizio Pandini (Broadcom)** | Tuesday, January 27, 2026 in Blog\n\nCluster API brings declarative management to Kubernetes cluster lifecycle, allowing users and platform teams to define the desired state of clusters and rely on controllers to continuously reconcile toward it. Similar to how you can use StatefulSets …\n\n[Read more](https://kubernetes.io/blog/2026/01/27/cluster-api-v1-12-release/)- ##### [Headlamp in 2025: Project Highlights](https://kubernetes.io/blog/2026/01/22/headlamp-in-2025-project-highlights/)\n\nBy **Evangelos Skopelitis (Microsoft)** | Thursday, January 22, 2026 in Blog\n\nThis announcement is a recap from a post originally published on the Headlamp blog. Headlamp has come a long way in 2025. The project has continued to grow – reaching more teams across platforms, powering new workflows and integrations through …\n\n[Read more](https://kubernetes.io/blog/2026/01/22/headlamp-in-2025-project-highlights/)\n\n- ##### [Uniform API server access using clientcmd](https://kubernetes.io/blog/2026/01/19/clientcmd-apiserver-access/)\n\nBy **[Stephen Kitt](https://github.com/skitt) (Red Hat)** | Monday, January 19, 2026 in Blog\n\nIf you've ever wanted to develop a command line client for a Kubernetes API, especially if you've considered making your client usable as a kubectl plugin, you might have wondered how to make your client feel familiar to users of kubectl. A quick …\n\n[Read more](https://kubernetes.io/blog/2026/01/19/clientcmd-apiserver-access/)\n\n- ##### [Kubernetes v1.35: Mutable PersistentVolume Node Affinity (alpha)](https://kubernetes.io/blog/2026/01/08/kubernetes-v1-35-mutable-pv-nodeaffinity/)\n\nBy **Weiwen Hu (Alibaba Cloud), YuanHui Qiu (Alibaba Cloud)** | Thursday, January 08, 2026 in Blog\n\nThe PersistentVolume node affinity API dates back to Kubernetes v1.10. It is widely used to express that volumes may not be equally accessible by all nodes in the cluster. This field was previously immutable, and it is now mutable in Kubernetes v1.35 …\n\n[Read more](https://kubernetes.io/blog/2026/01/08/kubernetes-v1-35-mutable-pv-nodeaffinity/)",
+					"tokensEstimate": 701,
+					"sourceUrl": "https://kubernetes.io/blog",
+					"pageTitle": "Kubernetes Blog"
+				}
+			],
+			"metadata": {
+				"url": "https://kubernetes.io/blog",
+				"title": "Kubernetes Blog",
+				"depth": 1,
+				"crawledAt": "2026-02-02T05:59:14.321Z",
+				"tokensEstimate": 701
+			}
+		}
+	]
+}

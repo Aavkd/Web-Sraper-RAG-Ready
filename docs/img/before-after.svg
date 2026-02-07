@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="Clean Markdown vs Raw HTML">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .panel { fill: #111827; stroke: #334155; stroke-width: 2; rx: 16; }
+      .title { fill: #e2e8f0; font: 700 32px 'Segoe UI', Arial, sans-serif; }
+      .label { fill: #94a3b8; font: 600 20px 'Segoe UI', Arial, sans-serif; }
+      .code { fill: #cbd5e1; font: 16px 'Consolas', 'Courier New', monospace; }
+      .accent { fill: #22c55e; }
+      .accent2 { fill: #ef4444; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1200" height="600" />
+
+  <text class="title" x="60" y="70">Clean Markdown vs Raw HTML</text>
+
+  <rect class="panel" x="60" y="110" width="520" height="420" />
+  <rect class="panel" x="620" y="110" width="520" height="420" />
+
+  <circle class="accent2" cx="90" cy="150" r="8" />
+  <text class="label" x="110" y="156">Raw HTML (noisy)</text>
+
+  <circle class="accent" cx="650" cy="150" r="8" />
+  <text class="label" x="670" y="156">Clean Markdown (signal)</text>
+
+  <text class="code" x="90" y="210">&lt;nav&gt;Home &gt; Docs &gt; API&lt;/nav&gt;</text>
+  <text class="code" x="90" y="240">&lt;div class="cookie"&gt;We use cookies&lt;/div&gt;</text>
+  <text class="code" x="90" y="270">&lt;main&gt;</text>
+  <text class="code" x="110" y="300">&lt;h1&gt;React Hooks Guide&lt;/h1&gt;</text>
+  <text class="code" x="110" y="330">&lt;div class="ad"&gt;BUY COFFEE&lt;/div&gt;</text>
+  <text class="code" x="90" y="360">&lt;/main&gt;</text>
+
+  <text class="code" x="650" y="210"># Getting Started with Crawlee</text>
+  <text class="code" x="650" y="240">## Installation</text>
+  <text class="code" x="650" y="270">npm install crawlee</text>
+  <text class="code" x="650" y="300">## Basic Usage</text>
+  <text class="code" x="650" y="330">Create a simple crawler in a few lines...</text>
+</svg>

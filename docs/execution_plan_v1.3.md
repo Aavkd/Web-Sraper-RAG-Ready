@@ -616,13 +616,13 @@ Update the `startUrl` description to include:
 
 ### Pre-Merge Checklist
 
-- [ ] All existing tests pass: `npm test`
-- [ ] New tests for language detection pass
-- [ ] New tests for image filtering pass
-- [ ] Lint passes: `npm run lint`
-- [ ] Build succeeds: `npm run build`
-- [ ] Manual validation on Stripe docs (language detection)
-- [ ] Manual validation on GitHub repo (image filtering)
+- [x] All existing tests pass: `npm test`
+- [x] New tests for language detection pass
+- [x] New tests for image filtering pass
+- [x] Lint passes: `npm run lint`
+- [x] Build succeeds: `npm run build`
+- [x] Manual validation on Stripe docs (language detection)
+- [x] Manual validation on GitHub repo (image filtering)
 - [ ] README changes reviewed for clarity
 
 ### Post-Merge Validation

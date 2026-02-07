@@ -1,0 +1,170 @@
+{
+  "usableSessionsCount": 2,
+  "retiredSessionsCount": 0,
+  "sessions": [
+    {
+      "id": "session_znxuRlJwQq",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "__cf_bm",
+            "value": "ggmQNjIK.S5J2dHIYsF1t3BhU30gymCC9vY4MI9oi0M-1770010725-1.0.1.1-_Ho51by6yO5dupmT1BRermKKZsCWbaJ1TyzMqgZ.pjC2Gn4kDZn5bZeu6I4CbuwJyfnHMclUvCXKqSWl1YgkH5R.bwQx9Iv2OUVDscjmUKuZzDCmL52cezVCUe62gwPC",
+            "expires": "2026-02-02T06:08:45.000Z",
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:45.136Z",
+            "lastAccessed": "2026-02-02T05:38:45.144Z",
+            "sameSite": "none"
+          },
+          {
+            "key": "_cfuvid",
+            "value": "Fn6S2HFjUJus.vscr0suCQ5G2tSL3MyG8jatT2c0_50-1770010725768-0.0.1.1-604800000",
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:45.142Z",
+            "lastAccessed": "2026-02-02T05:38:45.144Z",
+            "sameSite": "none"
+          },
+          {
+            "key": "TMog",
+            "value": "n35a08c17f51e4e1894e5a462e134faa905",
+            "expires": "2094-02-20T08:52:52.000Z",
+            "maxAge": 2147483647,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:45.493Z",
+            "lastAccessed": "2026-02-02T05:38:45.493Z"
+          },
+          {
+            "key": "globalTI_SID",
+            "value": "b41d04ab-09a9-42f9-9e9d-bf08add5683e",
+            "expires": "2028-02-02T05:38:45.000Z",
+            "maxAge": 63072000,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:45.493Z",
+            "lastAccessed": "2026-02-02T05:38:45.493Z"
+          },
+          {
+            "key": "Mint",
+            "value": "n35a08c17f51e4e1894e5a462e134faa905",
+            "expires": "2026-02-02T06:08:45.000Z",
+            "maxAge": 1800,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:45.493Z",
+            "lastAccessed": "2026-02-02T05:38:45.493Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-02T06:28:44.597Z",
+      "createdAt": "2026-02-02T05:38:44.597Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_N2ogynEph7",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "TMog",
+            "value": "na865b7fbeecb404bacfb705997b3eae005",
+            "expires": "2094-02-20T08:52:54.000Z",
+            "maxAge": 2147483647,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:47.044Z",
+            "lastAccessed": "2026-02-02T05:38:47.044Z"
+          },
+          {
+            "key": "globalTI_SID",
+            "value": "179effc0-8656-42eb-a633-18de56962560",
+            "expires": "2028-02-02T05:38:47.000Z",
+            "maxAge": 63072000,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:47.044Z",
+            "lastAccessed": "2026-02-02T05:38:47.044Z"
+          },
+          {
+            "key": "Mint",
+            "value": "na865b7fbeecb404bacfb705997b3eae005",
+            "expires": "2026-02-02T06:08:47.000Z",
+            "maxAge": 1800,
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:47.044Z",
+            "lastAccessed": "2026-02-02T05:38:47.044Z"
+          },
+          {
+            "key": "__cf_bm",
+            "value": "5UO2U5XWpnVnnCjaU_ysn6BddrvaBa2ERpp.MxGoQ2c-1770010727-1.0.1.1-bGxVLKO_XfaxsvJRMvetNjrhT6Cn2htwhw_20ErI2_jqFvr3oqmMIU53WJW3v6.h1JtMgzwDHX.oF7gtSj_LdIt_wQgOoNeNQAKDDN89NVxpmBoYl3XzDheA_w2P3Efo",
+            "expires": "2026-02-02T06:08:47.000Z",
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:47.044Z",
+            "lastAccessed": "2026-02-02T05:38:47.044Z",
+            "sameSite": "none"
+          },
+          {
+            "key": "_cfuvid",
+            "value": "HZob1nx7kdnDGZ28cWaThfyeZ9CITlnU2niHSGZoY6w-1770010727573-0.0.1.1-604800000",
+            "domain": "investopedia.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-02T05:38:47.044Z",
+            "lastAccessed": "2026-02-02T05:38:47.044Z",
+            "sameSite": "none"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-02T06:28:46.773Z",
+      "createdAt": "2026-02-02T05:38:46.773Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    }
+  ]
+}
