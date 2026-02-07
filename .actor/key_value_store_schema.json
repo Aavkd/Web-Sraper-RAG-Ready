@@ -1,13 +1,13 @@
 {
   "actorKeyValueStoreSchemaVersion": 1,
   "title": "Markdown Files",
-  "description": "Extracted content stored as individual Markdown files.",
-  "type": "object",
-  "properties": {
-    "markdownFiles": {
-      "type": "string",
-      "description": "Markdown content of scraped pages. Keys are derived from URLs.",
-      "contentType": "text/markdown"
+  "description": "Extracted content stored as individual Markdown files when outputFormat is 'markdown' or 'both'.",
+  "collections": {
+    "markdown": {
+      "title": "Markdown Pages",
+      "description": "Full markdown content of each scraped page. Keys are derived from page URLs.",
+      "keyPrefix": "page-",
+      "contentTypes": ["text/markdown", "text/plain"]
     }
   }
 }
