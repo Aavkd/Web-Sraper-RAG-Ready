@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "title": "Markdown Files",
+  "description": "Extracted content stored as individual Markdown files.",
+  "type": "object",
+  "properties": {
+    "markdownFiles": {
+      "type": "string",
+      "description": "Markdown content of scraped pages. Keys are derived from URLs.",
+      "contentType": "text/markdown"
+    }
+  }
+}

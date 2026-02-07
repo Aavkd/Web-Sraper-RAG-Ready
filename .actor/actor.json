@@ -8,70 +8,10 @@
   "input": "../INPUT_SCHEMA.json",
   "dockerfile": "../Dockerfile",
   "storages": {
-    "dataset": {
-      "actorSpecification": 1,
-      "fields": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "description": "The URL of the scraped page"
-          },
-          "title": {
-            "type": "string",
-            "description": "The title of the page"
-          },
-          "markdown": {
-            "type": "string",
-            "description": "The extracted content in Markdown format"
-          },
-          "chunks": {
-            "type": "array",
-            "description": "The content split into LLM-ready chunks",
-            "items": {
-              "type": "string"
-            }
-          },
-          "tokenCount": {
-            "type": "integer",
-            "description": "Estimated token count of the content"
-          },
-          "scrapedAt": {
-            "type": "string",
-            "description": "Timestamp when the page was scraped"
-          }
-        }
-      },
-      "views": {
-        "overview": {
-          "title": "Extracted Pages",
-          "description": "Dataset containing extracted page content with chunks",
-          "transformation": {},
-          "display": {
-            "component": "table",
-            "properties": {
-              "url": {
-                "label": "URL",
-                "format": "link"
-              },
-              "title": {
-                "label": "Title",
-                "format": "text"
-              },
-              "tokenCount": {
-                "label": "Tokens",
-                "format": "number"
-              },
-              "scrapedAt": {
-                "label": "Scraped At",
-                "format": "date"
-              }
-            }
-          }
-        }
-      }
-    }
+    "dataset": "./dataset_schema.json",
+    "keyValueStore": "./key_value_store_schema.json"
   },
+  "output": "./OUTPUT_SCHEMA.json",
   "meta": {
     "categories": [
       "SCRAPING",

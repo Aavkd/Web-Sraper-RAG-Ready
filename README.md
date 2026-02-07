@@ -1,4 +1,4 @@
-# RAG Web Scraper: Website to Markdown
+# RAG Web Scraper: The Ultimate HTML-to-Markdown Converter for LLMs
 
 **Turn any website into clean, token-efficient Markdown ready for RAG and LLM pipelines.**
 
@@ -17,6 +17,15 @@ Most web scrapers return raw HTML soup or noisy text — LLMs don't need that. T
 | **🐢/⚡ Hybrid Mode** | Starts fast (Cheerio). Auto-switches to Playwright if it detects a React/Next.js SPA. |
 | **💡 Q&A Optimized** | Preserves context on StackOverflow/Discourse style pages (Question + Answer). |
 | **💰 Efficient Cost** | Hybrid engine keeps compute units low. Pay usage fee only for results. |
+
+### 🏆 Why RAG Web Scraper?
+
+| Feature | **RAG Web Scraper** | Standard Scraper | Full Browser Scraper |
+| :--- | :---: | :---: | :---: |
+| **Cost** | 💰 Low (Hybrid) | 💰 Low | 💸 High |
+| **JS Support** | ✅ Auto-detect | ❌ No | ✅ Yes |
+| **Output** | 🧼 Clean Markdown | 🗑️ Raw HTML | 📄 Text/HTML |
+| **RAG Ready** | ✅ Chunked JSON | ❌ No | ❌ No |
 
 ---
 
@@ -150,6 +159,14 @@ Returns an array of objects with metadata and chunks.
   ]
 }
 ```
+
+### Markdown Files (outputFormat: 'markdown' or 'both')
+When `outputFormat` is set to `markdown` or `both`, the full Markdown files are stored in the **Apify Key-Value Store**.
+
+> **Note:** The default Apify dataset only contains the JSON results. To get the actual `.md` files:
+> 1. Go to the **Key-Value Store** tab in your Apify run.
+> 2. Look for keys like `OUTPUT` or page-specific keys.
+> 3. If using the API, target the Key-Value Store endpoint to download these raw files directly.
 
 ### Markdown
 Returns a single Markdown file per page (or combined), perfect for archiving or direct LLM context.

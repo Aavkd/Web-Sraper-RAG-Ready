@@ -1,0 +1,26 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "RAG Web Scraper Output",
+  "description": "Scraped content structured for RAG pipelines.",
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string",
+      "title": "Scraped Pages (JSON)",
+      "description": "JSON dataset containing structured page data (metadata, chunks, markdown).",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    },
+    "markdownFiles": {
+      "type": "string",
+      "title": "Markdown Files",
+      "description": "Individual Markdown files stored in the Key-Value Store (if enabled).",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys"
+    },
+    "overview": {
+      "type": "string",
+      "title": "Overview 🔎",
+      "description": "Table view of scraped pages with token counts",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+    }
+  }
+}

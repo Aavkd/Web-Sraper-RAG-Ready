@@ -1,0 +1,101 @@
+{
+  "actorSpecification": 1,
+  "title": "RAG Web Scraper Dataset",
+  "description": "Schema for the scraped content dataset.",
+  "fields": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The URL of the scraped page"
+      },
+      "title": {
+        "type": "string",
+        "description": "The title of the page"
+      },
+      "markdown": {
+        "type": "string",
+        "description": "The extracted content in Markdown format"
+      },
+      "chunks": {
+        "type": "array",
+        "description": "The content split into LLM-ready chunks",
+        "items": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            },
+            "tokensEstimate": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "depth": {
+            "type": "integer"
+          },
+          "crawledAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tokensEstimate": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "description": "Table view of scraped pages with token counts",
+      "transformation": {
+        "fields": [
+          "url",
+          "title",
+          "metadata.depth",
+          "metadata.tokensEstimate",
+          "metadata.crawledAt"
+        ],
+        "flatten": [
+          "metadata"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": {
+            "label": "URL",
+            "format": "link"
+          },
+          "title": {
+            "label": "Title",
+            "format": "text"
+          },
+          "metadata.depth": {
+            "label": "Depth",
+            "format": "number"
+          },
+          "metadata.tokensEstimate": {
+            "label": "Est. Tokens",
+            "format": "number"
+          },
+          "metadata.crawledAt": {
+            "label": "Crawled At",
+            "format": "date"
+          }
+        }
+      }
+    }
+  }
+}
